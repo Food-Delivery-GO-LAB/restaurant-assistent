@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { colors } from '../styles/variables';
 
 export interface CustomTheme {
   bg: {
@@ -14,11 +15,14 @@ export interface CustomTheme {
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#009DAE',
+      main: colors.primary,
     },
     secondary: {
-      main: '#B983FF',
+      main: colors.green,
     },
+  },
+  typography: {
+    fontFamily: 'IBM Plex Sans, IBM Plex Serif, Roboto, sans-serif',
   },
   shape: {
     borderRadius: 8,
