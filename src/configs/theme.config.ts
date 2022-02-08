@@ -7,8 +7,9 @@ export interface CustomTheme {
     light: string;
   };
   text: {
-    main: string;
-    light: string;
+    green: string;
+    white: string;
+    black: string;
   };
 }
 
@@ -32,7 +33,8 @@ export const theme = createTheme({
     light: '#FDF6F0',
   },
   text: {
-    main: '#000',
-    light: '#272727',
+    green: colors.green,
+    white: colors.white,
+    black: colors.dark,
   },
 });

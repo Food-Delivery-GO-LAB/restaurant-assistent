@@ -6,11 +6,12 @@ export const colors = {
   white_light: '#FFF3F1',
   white_lighter: '#F2F5F5',
   grey: '#798787',
-  grey_light: '#F2F5F5',
+  grey_light: '#96a6bb',
   dark: '#131314',
   green: '#51ACAE',
   green_hover: '#38999B',
   green_lighter: '#97CDCE',
+  error: '#D40000',
 };
 
 export const sizes = {

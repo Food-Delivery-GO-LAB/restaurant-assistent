@@ -19,13 +19,13 @@ const colors = {
     border: 1px solid ${globalColors.green};
     color: ${globalColors.green};
     &:hover {
-      background-color: ${globalColors.grey_light};
+      background-color: ${globalColors.white_lighter};
       color: ${globalColors.green_hover};
       border: 1px solid ${globalColors.green_hover};
     }
   `,
   disabled: css`
-    background-color: ${globalColors.grey_light};
+    background-color: ${globalColors.white_lighter};
     cursor: not-allowed;
     color: ${globalColors.grey};
   `,
@@ -48,9 +48,11 @@ const loadingStyles = css`
   color: transparent !important;
 `;
 
-export const StyledProgress = styled(isIOS() ? IosSpinner : CircularProgress)<
-  Pick<ButtonProps, 'buttonType'>
->`
+export const StyledProgress = styled(
+  isIOS() ? IosSpinner : CircularProgress
+).withConfig({
+  shouldForwardProp: (prop) => !['loading', 'buttonType'].includes(prop),
+})<Pick<ButtonProps, 'buttonType'>>`
   position: absolute;
   color: ${({ buttonType }) => {
     switch (buttonType) {
@@ -76,9 +78,9 @@ export const StyledButton = styled(MuiButton).withConfig({
     border: 1px solid transparent;
     transition: all 0.2s ease;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: unset;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 1em;
     padding: 0.5em 1em;
     display: flex;
     justify-content: center;
