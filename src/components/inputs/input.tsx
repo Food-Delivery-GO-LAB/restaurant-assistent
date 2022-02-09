@@ -56,16 +56,17 @@ const StyledInput = styled.input<InputProps>`
   width: 100%;
   background-color: ${(props) => props.theme.bg.light};
   outline: none;
-  border: 2px solid transparent;
-  border-radius: 8px;
+  border: 1px solid transparent;
+  border-radius: 2px;
   font-size: 16px;
   line-height: 19px;
   padding: 0.75em 16px;
   color: ${(props) => props.theme.text.black};
-  &:focus {
-    border-color: ${(props) => props.theme.text.black};
+  transition: border-color ease 0.25s, box-shadow ease 0.15s;
+  &:focus,
+  &:hover {
+    border-color: ${colors.green};
   }
-
   &:placeholder-shown ~ span {
     display: none;
   }

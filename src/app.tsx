@@ -5,6 +5,7 @@ import { GlobalStyle } from './configs/styles.config';
 import { Button } from './components/buttons';
 import Title from './components/typography/title';
 import Text from './components/typography/text';
+import Input from './components/inputs/input';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Text color="black" size="md">
         Hello world
       </Text>
+      <Input />
     </QueryClientProvider>
   );
 }
