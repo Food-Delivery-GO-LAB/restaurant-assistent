@@ -56,7 +56,7 @@ const StyledInput = styled.input<InputProps>`
   width: 100%;
   background-color: ${(props) => props.theme.bg.light};
   outline: none;
-  border: 1px solid transparent;
+  border: 1px solid #dbdbdd;
   border-radius: 2px;
   font-size: 16px;
   line-height: 19px;

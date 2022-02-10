@@ -30,7 +30,7 @@ export const theme = createTheme({
   },
   bg: {
     main: '#fff',
-    light: '#f8f8f*',
+    light: '#f8f8f8',
   },
   text: {
     green: colors.green,

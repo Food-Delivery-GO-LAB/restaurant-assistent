@@ -26,7 +26,7 @@ interface Props {
 }
 
 const Title = styled.h2<Props>`
-  color: ${(props) => props.theme.text.green};
+  color: ${(props) => props.theme.text.black};
   ${(props) => titleSizes[props.size]}
   text-align: ${(props) => props.position};
   font-weight: ${(props) => props.fontWeight};
