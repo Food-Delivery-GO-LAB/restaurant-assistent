@@ -42,6 +42,7 @@ const StartIconButton = styled(IconButton)`
   top: 50%;
   transform: translateY(-50%);
   padding: 0;
+
   svg {
     width: 15px;
     height: 15px;
@@ -56,23 +57,26 @@ const StyledInput = styled.input<InputProps>`
   width: 100%;
   background-color: ${(props) => props.theme.bg.light};
   outline: none;
-  border: 1px solid #dbdbdd;
+  border: 1px solid ${colors.grey_dark};
   border-radius: 2px;
   font-size: 16px;
   line-height: 19px;
   padding: 0.75em 16px;
   color: ${(props) => props.theme.text.black};
   transition: border-color ease 0.25s, box-shadow ease 0.15s;
+
   &:focus,
   &:hover {
     border-color: ${colors.green};
   }
+
   &:placeholder-shown ~ span {
     display: none;
   }
-  ${(props) => (props.startIcon ? hasStartIconStyles : '')}
 
-  @media (max-width: ${sizes.breakpoints.sm}) {
+  ${(props) =>
+    props.startIcon ? hasStartIconStyles : ''} @media(max-width: ${sizes
+    .breakpoints.sm}) {
     font-size: 14px;
   }
   ${(props) => (props.error ? errorStyle : '')}

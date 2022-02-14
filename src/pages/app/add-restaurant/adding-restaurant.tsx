@@ -2,6 +2,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { SelectChangeEvent } from '@mui/material/Select';
 import Input from '../../../components/inputs/input';
 import TextArea from '../../../components/inputs/text-area';
 import Label from '../../../components/typography/label';
@@ -16,18 +17,8 @@ import {
 import { Button } from '../../../components/buttons';
 import FileInput from '../../../components/inputs/file-input';
 import PlusIcon from '../../../components/icons/plus.icon';
-
-interface IRestaurant {
-  title: string;
-  category: string;
-  timeFrom: string;
-  timeTo: string;
-  location: string;
-  number: number;
-  admin: string;
-  logo: string;
-  email: string;
-}
+import Select from '../../../components/select/select';
+import { IRestaurant } from '../../../types/restaurant.types';
 
 const ValidationSchema: yup.SchemaOf<IRestaurant> = yup
   .object({
@@ -37,9 +28,18 @@ const ValidationSchema: yup.SchemaOf<IRestaurant> = yup
     timeTo: yup.string().required('Time is required'),
     location: yup.string().required('Location is required'),
     number: yup.number().required('Contact number is required'),
-    admin: yup.string().required('Admin is required'),
+    admin: yup.string().required('Full name is required'),
+    adminEmail: yup.string().required('Email is required'),
+    adminNumber: yup.number().required('Contact number is required'),
+    adminPassword: yup
+      .string()
+      .required('Password is required')
+      .matches(
+        /^.*(?=.{8,})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+        'Password must contain at least 8 characters, one uppercase, one number'
+      ),
     logo: yup.string().required('Logo is required'),
-    email: yup.string().required('Email is required'),
+    email: yup.string().required('Email is required').email('Email is invalid'),
   })
   .required();
 
@@ -53,6 +53,17 @@ const AddingRestaurant = () => {
   });
 
   const onSubmit: SubmitHandler<IRestaurant> = (data) => console.log(data);
+
+  const [value, setValue] = React.useState('');
+  const handleChange = (event: SelectChangeEvent<unknown>) => {
+    setValue(event.target.value as string);
+    console.log(value);
+  };
+  const options = [
+    { value: 'ten', name: 'Ten' },
+    { value: 'two', name: 'Two' },
+    { value: 'five', name: 'Five' },
+  ];
 
   return (
     <Wrapper>
@@ -75,6 +86,17 @@ const AddingRestaurant = () => {
               error={errors.category?.message}
               label="Category"
             />
+            {/* <Select
+              label="Category"
+              value={value}
+              onChange={handleChange}
+              options={options}
+            /> */}
+            <Input
+              {...register('location')}
+              error={errors.location?.message}
+              label="Location"
+            />
             <Input
               {...register('timeFrom')}
               error={errors.timeFrom?.message}
@@ -90,20 +112,10 @@ const AddingRestaurant = () => {
               placeholder="to"
             />
             <Input
-              {...register('location')}
-              error={errors.location?.message}
-              label="Location"
-            />
-            <Input
               {...register('number')}
               error={errors.number?.message}
               type="tel"
               label="Contact Number"
-            />
-            <Input
-              {...register('admin')}
-              error={errors.admin?.message}
-              label="Admin"
             />
             <LogoContainer>
               <Label htmlFor="logo">
@@ -120,11 +132,39 @@ const AddingRestaurant = () => {
               type="email"
               label="Email"
             />
+            <StyledArea>
+              <Label>Description</Label>
+              <TextArea rows={3} />
+            </StyledArea>
           </FormContainer>
-          <StyledArea>
-            <Label>Info</Label>
-            <TextArea cols={40} rows={5} />
-          </StyledArea>
+          <Title position="left" size="sm" fontWeight="500">
+            Admin Details
+          </Title>
+          <FormContainer>
+            <Input
+              {...register('admin')}
+              error={errors.admin?.message}
+              label="Full Name"
+            />
+            <Input
+              {...register('adminEmail')}
+              type="email"
+              error={errors.adminEmail?.message}
+              label="Email"
+            />
+            <Input
+              {...register('adminNumber')}
+              type="tel"
+              error={errors.adminNumber?.message}
+              label="Contact Number"
+            />
+            <Input
+              {...register('adminPassword')}
+              type="password"
+              error={errors.adminPassword?.message}
+              label="Password"
+            />
+          </FormContainer>
           <Button type="submit" color="primary">
             Submit
           </Button>
