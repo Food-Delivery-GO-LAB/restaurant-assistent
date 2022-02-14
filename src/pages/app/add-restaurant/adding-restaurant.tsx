@@ -57,12 +57,13 @@ const AddingRestaurant = () => {
   const [value, setValue] = React.useState('');
   const handleChange = (event: SelectChangeEvent<unknown>) => {
     setValue(event.target.value as string);
-    console.log(value);
+    console.log(event.target.value);
   };
   const options = [
-    { value: 'ten', name: 'Ten' },
-    { value: 'two', name: 'Two' },
-    { value: 'five', name: 'Five' },
+    { value: 'asian', name: 'Asian' },
+    { value: 'burgers', name: 'Burgers' },
+    { value: 'pizza', name: 'Pizza' },
+    { value: 'lunch', name: 'Lunch' },
   ];
 
   return (
@@ -81,17 +82,14 @@ const AddingRestaurant = () => {
               error={errors.title?.message}
               label="Title"
             />
-            <Input
+            <Select
               {...register('category')}
-              error={errors.category?.message}
+              errorMsg={errors.category?.message}
               label="Category"
-            />
-            {/* <Select
-              label="Category"
-              value={value}
               onChange={handleChange}
+              value={value}
               options={options}
-            /> */}
+            />
             <Input
               {...register('location')}
               error={errors.location?.message}

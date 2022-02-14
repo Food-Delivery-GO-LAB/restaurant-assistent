@@ -3,36 +3,46 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import styled from 'styled-components';
-import MuiSelect, { SelectChangeEvent } from '@mui/material/Select';
+import MuiSelect, {
+  SelectChangeEvent,
+  SelectProps,
+} from '@mui/material/Select';
 import { FormHelperText } from '@mui/material';
 import { colors } from '../../styles/variables';
 import InputWrapper from '../wrappers/input-wrapper';
 
 const StyledLabel = styled(InputLabel)`
-  font-size: 14px;
-  font-weight: 500;
-  color: ${colors.green};
-
-  &.Mui-focused {
+  && {
+    font-size: 14px;
+    font-weight: 500;
     color: ${colors.green};
+    margin-bottom: 8px;
+    line-height: 17px;
+    width: max-content;
+
+    &.Mui-focused {
+      color: ${colors.green};
+    }
   }
 `;
 
 const StyledSelect = styled(MuiSelect)`
-  color: ${(props) => props.theme.text.black};
-
-  svg,
-  path {
+  && {
     color: ${(props) => props.theme.text.black};
-  }
 
-  .MuiInputBase-root {
-    padding: 12px 16px;
-  }
+    svg,
+    path {
+      color: ${(props) => props.theme.text.black};
+    }
 
-  .MuiPaper-root.MuiPaper-elevation {
-    background-color: ${colors.white_lighter} !important;
-    color: ${colors.dark};
+    .MuiInputBase-root {
+      padding: 12px 16px;
+    }
+
+    .MuiPaper-root.MuiPaper-elevation {
+      background-color: ${colors.white_lighter} !important;
+      color: ${colors.dark};
+    }
   }
 `;
 
@@ -55,11 +65,6 @@ const StyledInputWrapper = styled(InputWrapper)`
     }
   }
 
-  fieldset {
-    background-color: ${(props) => props.theme.bg.light};
-    border: 1px solid ${colors.grey_dark};
-  }
-
   #demo-customized-select {
     padding: 12px 16px;
   }
@@ -75,13 +80,10 @@ const StyledErrorText = styled(FormHelperText)`
   }
 `;
 
-interface Props {
+interface Props extends SelectProps {
   errorMsg?: string;
   label?: string;
-  value: string;
-  required?: boolean;
-  onChange: (event: SelectChangeEvent<unknown>) => void;
-  options: { value: string; name: string }[];
+  options: { value: string | number; name: string }[];
 }
 
 const Select: React.FC<Props> = ({
@@ -91,18 +93,17 @@ const Select: React.FC<Props> = ({
   required,
   onChange,
   options,
+  ...otherProps
 }) => (
   <StyledInputWrapper>
-    <FormControl error={!!errorMsg} required={required}>
-      <StyledLabel variant="filled" id="demo-customized-select-label">
-        {label}
-      </StyledLabel>
+    <StyledLabel id="demo-customized-select-label">{label}</StyledLabel>
+    <FormControl error={!!errorMsg} required={required} fullWidth>
       <StyledSelect
         labelId="demo-customized-select-label"
         id="demo-customized-select"
         value={value}
         onChange={onChange}
-        variant="outlined"
+        {...otherProps}
       >
         {options.map((item) => (
           <MenuItem key={item.value} value={item.value}>
