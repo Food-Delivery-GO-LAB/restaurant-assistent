@@ -16,10 +16,10 @@ export interface CustomTheme {
 export const theme = createTheme({
   palette: {
     primary: {
-      main: colors.primary,
+      main: colors.green,
     },
     secondary: {
-      main: colors.green,
+      main: colors.primary,
     },
   },
   typography: {

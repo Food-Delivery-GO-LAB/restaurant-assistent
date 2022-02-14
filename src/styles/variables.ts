@@ -7,6 +7,7 @@ export const colors = {
   white_lighter: '#F2F5F5',
   grey: '#798787',
   grey_light: '#96a6bb',
+  grey_dark: '#dbdbdd',
   dark: '#131314',
   green: '#51ACAE',
   green_hover: '#38999B',
