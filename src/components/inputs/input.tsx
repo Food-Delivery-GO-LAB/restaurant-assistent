@@ -74,12 +74,12 @@ const StyledInput = styled.input<InputProps>`
     display: none;
   }
 
-  ${(props) =>
-    props.startIcon ? hasStartIconStyles : ''} @media(max-width: ${sizes
-    .breakpoints.sm}) {
+  ${(props) => (props.startIcon ? hasStartIconStyles : '')};
+  ${(props) => (props.error ? errorStyle : '')};
+
+  @media (max-width: ${sizes.breakpoints.sm}) {
     font-size: 14px;
   }
-  ${(props) => (props.error ? errorStyle : '')}
 `;
 const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const [hidden, setHidden] = useState(true);
