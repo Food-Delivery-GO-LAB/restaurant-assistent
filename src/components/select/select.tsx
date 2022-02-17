@@ -1,17 +1,14 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import styled from 'styled-components';
-import MuiSelect, {
-  SelectChangeEvent,
-  SelectProps,
-} from '@mui/material/Select';
+import MuiSelect, { SelectProps } from '@mui/material/Select';
 import { FormHelperText } from '@mui/material';
 import { colors } from '../../styles/variables';
 import InputWrapper from '../wrappers/input-wrapper';
 
-const StyledLabel = styled(InputLabel)`
+export const StyledLabel = styled(InputLabel)`
   && {
     font-size: 14px;
     font-weight: 500;
@@ -26,9 +23,10 @@ const StyledLabel = styled(InputLabel)`
   }
 `;
 
-const StyledSelect = styled(MuiSelect)`
+export const StyledSelect = styled(MuiSelect)`
   && {
     color: ${(props) => props.theme.text.black};
+    background-color: ${(props) => props.theme.bg.light};
 
     svg,
     path {
@@ -40,13 +38,12 @@ const StyledSelect = styled(MuiSelect)`
     }
 
     .MuiPaper-root.MuiPaper-elevation {
-      background-color: ${colors.white_lighter} !important;
       color: ${colors.dark};
     }
   }
 `;
 
-const StyledInputWrapper = styled(InputWrapper)`
+export const StyledInputWrapper = styled(InputWrapper)`
   .MuiOutlinedInput-root {
     border-radius: 2px;
 
@@ -65,60 +62,51 @@ const StyledInputWrapper = styled(InputWrapper)`
     }
   }
 
-  #demo-customized-select {
+  #demo-customized-select,
+  #demo-multiple-checkbox {
     padding: 12px 16px;
   }
 `;
 
-const StyledErrorText = styled(FormHelperText)`
+export const StyledErrorText = styled(FormHelperText)`
   && {
     font-size: 12px;
-    margin: 0;
-    margin-top: 1px;
-    margin-left: 8px;
+    margin: 1px 0 0 8px;
     font-weight: 500;
   }
 `;
 
 interface Props extends SelectProps {
-  errorMsg?: string;
+  errormsg?: string;
   label?: string;
   options: { value: string | number; name: string }[];
 }
 
-const Select: React.FC<Props> = ({
-  errorMsg,
-  label,
-  value,
-  required,
-  onChange,
-  options,
-  ...otherProps
-}) => (
+const Select = React.forwardRef<HTMLSelectElement, Props>((props, ref) => (
   <StyledInputWrapper>
-    <StyledLabel id="demo-customized-select-label">{label}</StyledLabel>
-    <FormControl error={!!errorMsg} required={required} fullWidth>
+    <StyledLabel id="demo-customized-select-label">{props.label}</StyledLabel>
+    <FormControl error={!!props.errormsg} required={props.required} fullWidth>
       <StyledSelect
         labelId="demo-customized-select-label"
         id="demo-customized-select"
-        value={value}
-        onChange={onChange}
-        {...otherProps}
+        value={props.value}
+        onChange={props.onChange}
+        ref={ref}
+        {...props}
       >
-        {options.map((item) => (
+        {props.options.map((item) => (
           <MenuItem key={item.value} value={item.value}>
             {item.name}
           </MenuItem>
         ))}
       </StyledSelect>
-      <StyledErrorText>{errorMsg}</StyledErrorText>
+      <StyledErrorText>{props.errormsg}</StyledErrorText>
     </FormControl>
   </StyledInputWrapper>
-);
+));
 
 Select.defaultProps = {
   required: false,
-  label: '',
 };
 
 export default Select;
