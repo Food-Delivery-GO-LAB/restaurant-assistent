@@ -28,39 +28,47 @@ export const FormContainer = styled.div`
 `;
 
 export const StyledArea = styled.div`
-  min-width: 300px;
-  width: 30%;
+  width: 100%;
   margin: 12px 0;
   text-align: left;
 
   textarea {
     margin-top: 8px;
-    //min-width: 250px;
-    //max-width: 400px;
     min-height: 100px;
   }
 `;
 
 export const LogoContainer = styled.div`
+  position: relative;
   height: 120px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-top: 12px;
 
   label {
     text-align: left;
   }
+`;
 
-  div {
-    cursor: pointer;
-    width: 100px;
-    height: 100px;
-    background: #f7f7f7;
-    border: 3px dashed #dbdbdd;
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 8px;
-  }
+export const UploadArea = styled.div`
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  background-color: #f7f7f7;
+  border: 3px dashed #dbdbdd;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+`;
+
+export const LogoArea = styled.div<{ src: string }>`
+  width: 100px;
+  height: 100px;
+  margin-left: 10px;
+  margin-top: 25px;
+  background-image: url(${(props) => props.src});
+  background-repeat: no-repeat;
+  background-size: contain;
 `;
