@@ -104,6 +104,8 @@ const AddingRestaurant = () => {
             uploadLogo.mutate({ file, id: res.id });
           }
           reset();
+          setLogoUrl('');
+          setCategory([]);
         },
       }
     );
