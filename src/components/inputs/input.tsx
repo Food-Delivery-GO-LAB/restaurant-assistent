@@ -57,7 +57,7 @@ const StyledInput = styled.input<InputProps>`
   width: 100%;
   background-color: ${(props) => props.theme.bg.light};
   outline: none;
-  border: 1px solid ${colors.grey_dark};
+  border: 1px solid ${colors.grey};
   border-radius: 2px;
   font-size: 16px;
   line-height: 19px;
