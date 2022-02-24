@@ -8,10 +8,10 @@ import IosSpinner from '../loaders/ios-spinner';
 
 const colors = {
   primary: css`
-    background-color: ${globalColors.green};
+    background-color: ${globalColors.primary};
     color: ${globalColors.white};
     &:hover {
-      background-color: ${globalColors.green_hover};
+      background-color: ${globalColors.primary_hover};
     }
   `,
   secondary: css`
@@ -31,6 +31,7 @@ const colors = {
   `,
   text: css`
     padding: 6px 12px;
+    color: ${globalColors.dark};
     background-color: transparent;
   `,
   error: css`
