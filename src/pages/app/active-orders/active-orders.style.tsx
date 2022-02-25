@@ -27,6 +27,9 @@ export const ButtonContainer = styled.div`
   button:first-of-type {
     margin-right: 10px;
   }
+  button:last-of-type {
+    border: 1px solid ${colors.dark};
+  }
 `;
 
 export const StyledButton = styled(Button)`
