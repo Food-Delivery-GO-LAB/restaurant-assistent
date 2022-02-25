@@ -7,11 +7,26 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Wrapper } from './active-orders.style';
+import {
+  ButtonContainer,
+  StyledButton,
+  StyledStatus,
+  Wrapper,
+} from './active-orders.style';
 import Title from '../../../components/typography/title';
+import Button from '../../../components/buttons/button';
+import CheckIcon from '../../../components/icons/check.icon';
+import CancelIcon from '../../../components/icons/cancel.icon';
 
 interface Column {
-  id: 'orderId' | 'date' | 'address' | 'dishes' | 'total' | 'status';
+  id:
+    | 'orderId'
+    | 'date'
+    | 'address'
+    | 'dishes'
+    | 'total'
+    | 'status'
+    | 'actions';
   label: string;
 }
 
@@ -22,6 +37,7 @@ const columns: readonly Column[] = [
   { id: 'dishes', label: 'Dishes' },
   { id: 'total', label: 'Total' },
   { id: 'status', label: 'Status' },
+  { id: 'actions', label: 'Actions' },
 ];
 
 interface Data {
@@ -30,7 +46,12 @@ interface Data {
   address: string;
   dishes: string;
   total: number;
-  status: 1 | 2 | 3 | 4 | 5;
+  status:
+    | 'New'
+    | 'In progress'
+    | 'Ready for delivery'
+    | 'Completed'
+    | 'Canceled';
 }
 
 function createData(
@@ -39,7 +60,12 @@ function createData(
   address: string,
   dishes: string,
   total: number,
-  status: 1 | 2 | 3 | 4 | 5
+  status:
+    | 'New'
+    | 'In progress'
+    | 'Ready for delivery'
+    | 'Completed'
+    | 'Canceled'
 ): Data {
   return { orderId, date, address, dishes, total, status };
 }
@@ -51,7 +77,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'New'
   ),
   createData(
     101,
@@ -59,7 +85,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'New'
   ),
   createData(
     101,
@@ -67,7 +93,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'Ready for delivery'
   ),
   createData(
     101,
@@ -75,7 +101,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -83,7 +109,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -91,7 +117,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -99,7 +125,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -107,7 +133,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -115,7 +141,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -123,7 +149,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -131,7 +157,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -139,7 +165,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -147,7 +173,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -155,7 +181,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -163,7 +189,7 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
+    'In progress'
   ),
   createData(
     101,
@@ -171,29 +197,13 @@ const rows = [
     'улица Притыцкого 30',
     'Hamburger',
     15.1,
-    1
-  ),
-  createData(
-    101,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    1
-  ),
-  createData(
-    101,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    1
+    'In progress'
   ),
 ];
 
 const ActiveOrders = () => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -214,7 +224,7 @@ const ActiveOrders = () => {
       <Paper
         sx={{
           width: '100%',
-          maxHeight: '70vh',
+          maxHeight: '75vh',
           overflow: 'auto',
           borderRadius: '4px',
         }}
@@ -224,7 +234,9 @@ const ActiveOrders = () => {
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <TableCell key={column.id}>{column.label}</TableCell>
+                  <TableCell sx={{ fontSize: '1em' }} key={column.id}>
+                    {column.label}
+                  </TableCell>
                 ))}
               </TableRow>
             </TableHead>
@@ -241,16 +253,39 @@ const ActiveOrders = () => {
                     <TableCell>{row.orderId}</TableCell>
                     <TableCell>{row.date}</TableCell>
                     <TableCell>{row.address}</TableCell>
-                    <TableCell>{row.dishes}</TableCell>
-                    <TableCell>${row.total}</TableCell>
-                    <TableCell>{row.status}</TableCell>
+                    <TableCell>
+                      <Button buttonType="secondary">View</Button>
+                    </TableCell>
+                    <TableCell>{row.total} BYN</TableCell>
+                    <TableCell
+                      sx={{
+                        p: '10px',
+                        minWidth: 160,
+                      }}
+                    >
+                      <StyledStatus status={row.status}>
+                        {row.status}
+                      </StyledStatus>
+                    </TableCell>
+                    <TableCell>
+                      <ButtonContainer>
+                        <StyledButton buttonType="primary">
+                          <CheckIcon />
+                          Accept
+                        </StyledButton>
+                        <StyledButton buttonType="text">
+                          <CancelIcon />
+                          Reject
+                        </StyledButton>
+                      </ButtonContainer>
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 25, 50]}
+          rowsPerPageOptions={[5, 10, 25, 50]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

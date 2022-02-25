@@ -17,8 +17,8 @@ const ManagerPage: React.FC<ManagerPageProps> = () => (
       <MainContent>
         <Outlet />
       </MainContent>
-      <Footer />
     </MainWrapper>
+    <Footer />
   </>
 );
 

@@ -26,7 +26,7 @@ const NavBar = () => (
       <StyledButton buttonType="text">Menu</StyledButton>
     </StyledNavLink>
     <StyledNavLink to="/courier/my_history" style={navLinkStyle}>
-      <StyledButton buttonType="text">My history</StyledButton>
+      <StyledButton buttonType="text">Order History</StyledButton>
     </StyledNavLink>
   </OrdersNav>
 );
