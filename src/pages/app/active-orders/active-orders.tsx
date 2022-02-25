@@ -17,6 +17,7 @@ import Title from '../../../components/typography/title';
 import Button from '../../../components/buttons/button';
 import CheckIcon from '../../../components/icons/check.icon';
 import CancelIcon from '../../../components/icons/cancel.icon';
+import { Order } from '../../../types/orders.types';
 
 interface Column {
   id:
@@ -269,14 +270,18 @@ const ActiveOrders = () => {
                     </TableCell>
                     <TableCell>
                       <ButtonContainer>
-                        <StyledButton buttonType="primary">
-                          <CheckIcon />
-                          Accept
-                        </StyledButton>
-                        <StyledButton buttonType="text">
-                          <CancelIcon />
-                          Reject
-                        </StyledButton>
+                        {row.status === Order.NEW && (
+                          <StyledButton buttonType="primary">
+                            <CheckIcon />
+                            Accept
+                          </StyledButton>
+                        )}
+                        {row.status !== Order.READY_FOR_DELIVERY && (
+                          <StyledButton buttonType="text">
+                            <CancelIcon />
+                            Reject
+                          </StyledButton>
+                        )}
                       </ButtonContainer>
                     </TableCell>
                   </TableRow>
