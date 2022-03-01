@@ -4,28 +4,27 @@ import { Drawer, Hidden } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { SidebarContext } from '../../../context/sidebar-context';
 import {
-  CourierName,
   LogoutStyle,
   OrdersNav,
   SidebarWrapper,
+  StyledBadge,
   StyledButton,
   StyledNavLink,
   TopSection,
 } from './sidebar.style';
 
-const navLinkStyle = {
-  width: '100%',
-};
-
 const NavBar = () => (
   <OrdersNav>
-    <StyledNavLink to="/active-orders" style={navLinkStyle}>
-      <StyledButton buttonType="text">Active orders</StyledButton>
+    <StyledNavLink to="/active-orders">
+      <StyledButton buttonType="text">
+        Active orders
+        <StyledBadge />
+      </StyledButton>
     </StyledNavLink>
-    <StyledNavLink to="/courier/my_orders" style={navLinkStyle}>
+    <StyledNavLink to="/courier/my_orders">
       <StyledButton buttonType="text">Menu</StyledButton>
     </StyledNavLink>
-    <StyledNavLink to="/courier/my_history" style={navLinkStyle}>
+    <StyledNavLink to="/courier/my_history">
       <StyledButton buttonType="text">Order History</StyledButton>
     </StyledNavLink>
   </OrdersNav>

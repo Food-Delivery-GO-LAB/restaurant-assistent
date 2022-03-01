@@ -4,55 +4,11 @@ import { NavLink } from 'react-router-dom';
 import { Button } from '../../../components/buttons';
 import { colors } from '../../../styles/variables';
 
-export const SidebarHeader = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0 0 2rem 2rem;
-  border-bottom: 1px solid lightgrey;
-`;
-
-export const LogoSection = styled(Box)`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 120px;
-  min-height: 10%;
-  color: ${colors.green};
-`;
-
-export const CourierName = styled(Box)`
-  display: inline-flex;
-  width: fit-content;
-  flex-basis: auto;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  color: ${colors.white};
-  background-color: ${colors.grey_light};
-`;
-
 export const OrdersNav = styled(Box)`
   display: flex;
   flex-flow: column nowrap;
   align-items: flex-end;
   margin-top: 2rem;
-`;
-
-export const StyledButton = styled(Button)`
-  && {
-    width: 100%;
-    padding: 1rem 0;
-    border: none;
-    border-radius: 0;
-    &:hover {
-      border: none;
-      color: ${colors.primary};
-    }
-  }
-`;
-
-export const NavButton = styled(NavLink)`
-  width: 100%;
 `;
 
 export const LogoutStyle = styled(Button)`
@@ -87,16 +43,37 @@ export const TopSection = styled(Box)(
         align-items: center;
         margin: 0 ${theme.spacing(2)} ${theme.spacing(2)};
         border-bottom: ${theme.sidebar.dividerBg} solid 1px;
-        
 `
 );
 
-export const StyledNavLink = styled(NavLink)`
-  &.active {
-    box-shadow: inset 3px 0 0 0 ${colors.primary};
-
-    button {
+export const StyledButton = styled(Button)`
+  && {
+    position: relative;
+    color: ${colors.primary};
+    width: 100%;
+    padding: 1rem 0;
+    border: none;
+    border-radius: 0;
+    &:hover {
+      border: none;
       color: ${colors.primary};
     }
   }
+`;
+
+export const StyledNavLink = styled(NavLink)`
+  width: 100%;
+  display: flex;
+  &.active {
+    box-shadow: inset 3px 0 0 0 ${colors.primary};
+  }
+`;
+
+export const StyledBadge = styled.div`
+  position: absolute;
+  right: 45px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: ${colors.green};
 `;
