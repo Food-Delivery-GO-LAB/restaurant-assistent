@@ -81,7 +81,7 @@ const rows = [
     'New'
   ),
   createData(
-    101,
+    102,
     '26 March 2020, 12:42 AM',
     'улица Притыцкого 30',
     'Hamburger',
@@ -89,7 +89,7 @@ const rows = [
     'New'
   ),
   createData(
-    101,
+    103,
     '26 March 2020, 12:42 AM',
     'улица Притыцкого 30',
     'Hamburger',
@@ -97,7 +97,7 @@ const rows = [
     'Ready for delivery'
   ),
   createData(
-    101,
+    104,
     '26 March 2020, 12:42 AM',
     'улица Притыцкого 30',
     'Hamburger',
@@ -105,7 +105,7 @@ const rows = [
     'In progress'
   ),
   createData(
-    101,
+    105,
     '26 March 2020, 12:42 AM',
     'улица Притыцкого 30',
     'Hamburger',
@@ -113,7 +113,7 @@ const rows = [
     'In progress'
   ),
   createData(
-    101,
+    106,
     '26 March 2020, 12:42 AM',
     'улица Притыцкого 30',
     'Hamburger',
@@ -121,7 +121,7 @@ const rows = [
     'In progress'
   ),
   createData(
-    101,
+    107,
     '26 March 2020, 12:42 AM',
     'улица Притыцкого 30',
     'Hamburger',
@@ -129,7 +129,7 @@ const rows = [
     'In progress'
   ),
   createData(
-    101,
+    108,
     '26 March 2020, 12:42 AM',
     'улица Притыцкого 30',
     'Hamburger',
@@ -137,7 +137,7 @@ const rows = [
     'In progress'
   ),
   createData(
-    101,
+    109,
     '26 March 2020, 12:42 AM',
     'улица Притыцкого 30',
     'Hamburger',
@@ -145,55 +145,7 @@ const rows = [
     'In progress'
   ),
   createData(
-    101,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    101,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    101,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    101,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    101,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    101,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    101,
+    110,
     '26 March 2020, 12:42 AM',
     'улица Притыцкого 30',
     'Hamburger',
@@ -271,7 +223,10 @@ const ActiveOrders = () => {
                     <TableCell>
                       <ButtonContainer>
                         {row.status === Order.NEW && (
-                          <StyledButton buttonType="primary">
+                          <StyledButton
+                            onClick={() => console.log(row.status)}
+                            buttonType="primary"
+                          >
                             <CheckIcon />
                             Accept
                           </StyledButton>
