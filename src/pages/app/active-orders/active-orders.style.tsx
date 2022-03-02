@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../../styles/variables';
 import { IOrderStatus } from '../../../types/orders.types';
@@ -6,10 +5,10 @@ import { changeStatusColor } from '../../../utils/check-order-status';
 import Button from '../../../components/buttons/button';
 
 export const Wrapper = styled.div`
-  padding: 1em 3em;
+  padding: 2em 3em;
 
   h2 {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
 `;
 
@@ -33,7 +32,9 @@ export const ButtonContainer = styled.div`
 `;
 
 export const StyledButton = styled(Button)`
-  svg {
-    margin-right: 5px;
+  && {
+    svg {
+      margin-right: 5px;
+    }
   }
 `;
