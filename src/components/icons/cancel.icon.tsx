@@ -1,13 +1,12 @@
 import React from 'react';
-import { sizes } from '../../styles/variables';
 import { IconType } from '../../types/icon.types';
 
 const CancelIcon: IconType = ({ size }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    width="16"
-    height="16"
+    width={size ?? 16}
+    height={size ?? 16}
   >
     <path fill="none" d="M0 0h24v24H0z" />
     <path

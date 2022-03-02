@@ -7,17 +7,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import {
-  ButtonContainer,
-  StyledButton,
-  StyledStatus,
-  Wrapper,
-} from './active-orders.style';
+import { ButtonContainer, StyledStatus, Wrapper } from './active-orders.style';
 import Title from '../../../components/typography/title';
 import Button from '../../../components/buttons/button';
-import CheckIcon from '../../../components/icons/check.icon';
-import CancelIcon from '../../../components/icons/cancel.icon';
-import { Order } from '../../../types/orders.types';
+import { OrderStatus, OrderStatusNum } from '../../../types/orders.types';
+import { useOrders } from '../../../services/queries/use-orders';
+import { colors } from '../../../styles/variables';
+import ActiveOrdersButton from './active-orders-button';
 
 interface Column {
   id:
@@ -41,122 +37,11 @@ const columns: readonly Column[] = [
   { id: 'actions', label: 'Actions' },
 ];
 
-interface Data {
-  orderId: number;
-  date: string;
-  address: string;
-  dishes: string;
-  total: number;
-  status:
-    | 'New'
-    | 'In progress'
-    | 'Ready for delivery'
-    | 'Completed'
-    | 'Canceled';
-}
-
-function createData(
-  orderId: number,
-  date: string,
-  address: string,
-  dishes: string,
-  total: number,
-  status:
-    | 'New'
-    | 'In progress'
-    | 'Ready for delivery'
-    | 'Completed'
-    | 'Canceled'
-): Data {
-  return { orderId, date, address, dishes, total, status };
-}
-
-const rows = [
-  createData(
-    101,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'New'
-  ),
-  createData(
-    102,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'New'
-  ),
-  createData(
-    103,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'Ready for delivery'
-  ),
-  createData(
-    104,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    105,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    106,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    107,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    108,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    109,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-  createData(
-    110,
-    '26 March 2020, 12:42 AM',
-    'улица Притыцкого 30',
-    'Hamburger',
-    15.1,
-    'In progress'
-  ),
-];
-
 const ActiveOrders = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const orders = useOrders({ limit: 10 });
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -187,67 +72,80 @@ const ActiveOrders = () => {
             <TableHead>
               <TableRow>
                 {columns.map((column) => (
-                  <TableCell sx={{ fontSize: '1em' }} key={column.id}>
+                  <TableCell
+                    sx={{
+                      fontSize: '1em',
+                      backgroundColor: `${colors.white_lighter}`,
+                    }}
+                    key={column.id}
+                  >
                     {column.label}
                   </TableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.orderId}
-                  >
-                    <TableCell>{row.orderId}</TableCell>
-                    <TableCell>{row.date}</TableCell>
-                    <TableCell>{row.address}</TableCell>
-                    <TableCell>
-                      <Button buttonType="secondary">View</Button>
-                    </TableCell>
-                    <TableCell>{row.total} BYN</TableCell>
-                    <TableCell
-                      sx={{
-                        p: '10px',
-                        minWidth: 160,
-                      }}
+              {orders.data &&
+                orders.data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((order) => (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={order.orderId}
                     >
-                      <StyledStatus status={row.status}>
-                        {row.status}
-                      </StyledStatus>
-                    </TableCell>
-                    <TableCell>
-                      <ButtonContainer>
-                        {row.status === Order.NEW && (
-                          <StyledButton
-                            onClick={() => console.log(row.status)}
-                            buttonType="primary"
-                          >
-                            <CheckIcon />
-                            Accept
-                          </StyledButton>
-                        )}
-                        {row.status !== Order.READY_FOR_DELIVERY && (
-                          <StyledButton buttonType="text">
-                            <CancelIcon />
-                            Reject
-                          </StyledButton>
-                        )}
-                      </ButtonContainer>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      <TableCell>{order.orderId}</TableCell>
+                      <TableCell>
+                        {new Date(order.date).toLocaleTimeString()}
+                        {', '}
+                        {new Date(order.date).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell>{order.address}</TableCell>
+                      <TableCell>
+                        <Button buttonType="secondary">View</Button>
+                      </TableCell>
+                      <TableCell>{order.cost} BYN</TableCell>
+                      <TableCell
+                        sx={{
+                          p: '10px',
+                          minWidth: 160,
+                        }}
+                      >
+                        <StyledStatus status={order.status}>
+                          {order.status}
+                        </StyledStatus>
+                      </TableCell>
+                      <TableCell>
+                        <ButtonContainer>
+                          {order.status === OrderStatus.NEW && (
+                            <ActiveOrdersButton
+                              buttonType="primary"
+                              id={order.id}
+                              text="Accept"
+                              status={OrderStatusNum.IN_PROGRESS}
+                            />
+                          )}
+                          {(order.status === OrderStatus.NEW ||
+                            order.status === OrderStatus.IN_PROGRESS) && (
+                            <ActiveOrdersButton
+                              buttonType="text"
+                              id={order.id}
+                              text="Reject"
+                              status={OrderStatusNum.CANCELED}
+                            />
+                          )}
+                        </ButtonContainer>
+                      </TableCell>
+                    </TableRow>
+                  ))}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25, 50]}
           component="div"
-          count={rows.length}
+          count={orders.data?.length ?? 0}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
