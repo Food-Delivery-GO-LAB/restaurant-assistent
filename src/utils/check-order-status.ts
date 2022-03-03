@@ -1,7 +1,7 @@
-import { IOrderStatus, OrderStatus } from '../types/orders.types';
+import { OrderStatus, Status } from '../types/orders.types';
 
-export const changeStatusColor = (data: IOrderStatus) => {
-  switch (data.status) {
+export const changeStatusColor = (data: Status) => {
+  switch (data) {
     case OrderStatus.NEW:
       return '#12AB74';
     case OrderStatus.IN_PROGRESS:

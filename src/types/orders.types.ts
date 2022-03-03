@@ -14,14 +14,12 @@ export enum OrderStatusNum {
   COMPLETED = 5,
 }
 
-export interface IOrderStatus {
-  status:
-    | 'New'
-    | 'In progress'
-    | 'Ready for delivery'
-    | 'Completed'
-    | 'Canceled';
-}
+export type Status =
+  | 'New'
+  | 'In progress'
+  | 'Ready for delivery'
+  | 'Completed'
+  | 'Canceled';
 
 export interface Order {
   id: string;
@@ -30,12 +28,7 @@ export interface Order {
   date: Date;
   address: string;
   dishes: Dish[];
-  status:
-    | 'New'
-    | 'In progress'
-    | 'Ready for delivery'
-    | 'Completed'
-    | 'Canceled';
+  status: Status;
 }
 
 type Dish = {
