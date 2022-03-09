@@ -21,10 +21,10 @@ const NavBar = () => (
         <StyledBadge />
       </StyledButton>
     </StyledNavLink>
-    <StyledNavLink to="/courier/my_orders">
+    <StyledNavLink to="/menu">
       <StyledButton buttonType="text">Menu</StyledButton>
     </StyledNavLink>
-    <StyledNavLink to="/courier/my_history">
+    <StyledNavLink to="/history">
       <StyledButton buttonType="text">Order History</StyledButton>
     </StyledNavLink>
   </OrdersNav>

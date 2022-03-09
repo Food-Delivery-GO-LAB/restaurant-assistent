@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import CancelIcon from '../icons/cancel.icon';
+import { colors } from '../../styles/variables';
 
 export const StyledPaper = styled(Paper)`
   padding: 6px 0;
@@ -27,15 +28,14 @@ export const StyledModal = styled(Modal)`
 
 export const CloseButton = styled((props: IconButtonProps) => (
   <IconButton {...props}>
-    <CancelIcon size={12} />
+    <CancelIcon size={22} />
   </IconButton>
 ))`
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: ${(props) => props.theme.bg.main};
-  padding: 9.8px;
+  background-color: ${colors.white_lighter};
+  padding: 7px;
   border-radius: 8px;
-  color: ${(props) => props.theme.text.black};
   z-index: 2;
 `;

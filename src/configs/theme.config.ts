@@ -7,6 +7,7 @@ export interface CustomTheme {
     light: string;
   };
   text: {
+    primary: string;
     green: string;
     white: string;
     black: string;
@@ -31,6 +32,15 @@ export interface CustomTheme {
     boxShadow: string;
     textColor: string;
   };
+  components: {
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'string';
+        };
+      };
+    };
+  };
 }
 
 export const theme = createTheme({
@@ -53,6 +63,7 @@ export const theme = createTheme({
     light: '#FDF6F0',
   },
   text: {
+    primary: colors.primary,
     green: colors.green,
     white: colors.white,
     black: colors.dark,
@@ -77,5 +88,14 @@ export const theme = createTheme({
     background: colors.white,
     boxShadow: colors.shadows.cardSm,
     textColor: colors.green,
+  },
+  components: {
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgba(0,0,0,0.2)',
+        },
+      },
+    },
   },
 });

@@ -18,7 +18,7 @@ function Header() {
         <StyledTitle>{headerTitle}</StyledTitle>
       </Box>
       <Box display="flex" alignItems="center">
-        Hello, User
+        Hello, Manager
         <Hidden lgUp>
           <Tooltip arrow title="Toggle Menu">
             <IconButton color="primary" onClick={toggleSidebar}>

@@ -5,7 +5,7 @@ import { FooterStyle, FdsContacts } from './footer.style';
 function Footer() {
   return (
     <FooterStyle>
-      <FdsContacts>Food Delivery Service contacts</FdsContacts>
+      <FdsContacts>Restaurant Manager Panel</FdsContacts>
     </FooterStyle>
   );
 }
