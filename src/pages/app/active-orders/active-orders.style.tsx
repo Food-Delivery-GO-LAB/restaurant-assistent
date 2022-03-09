@@ -38,3 +38,21 @@ export const StyledButton = styled(Button)`
     }
   }
 `;
+
+export const ModalWrapper = styled.div`
+  width: 400px;
+  min-height: 200px;
+  padding: 1em 2.5em;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const DishWrapper = styled.div`
+  margin-top: 1.5em;
+`;
+
+export const DishContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
