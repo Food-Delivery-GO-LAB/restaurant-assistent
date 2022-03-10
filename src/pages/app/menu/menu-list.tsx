@@ -15,7 +15,6 @@ import {
 } from './menu-list.style';
 import Text from '../../../components/typography/text';
 import Button from '../../../components/buttons';
-import img from './img.png';
 
 const MenuList = () => {
   const dishes = useDishes('02fb44e3-5f18-45eb-80a1-d8b4e8a22f1b');
