@@ -7,7 +7,7 @@ import Button from '../../../components/buttons/button';
 export const Wrapper = styled.div`
   padding: 2em 3em;
 
-  h2 {
+  h2:first-of-type {
     margin-bottom: 24px;
   }
 `;

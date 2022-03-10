@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Box } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import { Button } from '../../../components/buttons';
+import Button from '../../../components/buttons';
 import { colors } from '../../../styles/variables';
 
 export const OrdersNav = styled(Box)`

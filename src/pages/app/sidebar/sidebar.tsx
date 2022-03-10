@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-
 import { Drawer, Hidden } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { SidebarContext } from '../../../context/sidebar-context';
