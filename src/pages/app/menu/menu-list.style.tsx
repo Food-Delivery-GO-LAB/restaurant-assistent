@@ -70,6 +70,9 @@ export const LeftSide = styled.div`
   h2 {
     text-align: left;
   }
+  @media (min-width: 768px) {
+    padding: 1.5rem 0;
+  }
 `;
 
 export const RightSide = styled.div`
@@ -89,7 +92,7 @@ export const RightSide = styled.div`
   @media (min-width: 768px) {
     align-items: flex-end;
     p {
-      margin-top: 30px;
+      margin-top: 35px;
     }
     button {
       width: unset;
