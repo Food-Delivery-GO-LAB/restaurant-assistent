@@ -68,7 +68,7 @@ const ActiveOrders = () => {
   return (
     <Wrapper>
       <Spinner loading={orders.isLoading}>
-        <Title position="left" size="md">
+        <Title position="left" size="lg" fontWeight="400">
           Active Orders
         </Title>
         <Paper

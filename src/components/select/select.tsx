@@ -12,13 +12,13 @@ export const StyledLabel = styled(InputLabel)`
   && {
     font-size: 14px;
     font-weight: 500;
-    color: ${colors.green};
+    color: ${colors.dark};
     margin-bottom: 8px;
     line-height: 17px;
     width: max-content;
 
     &.Mui-focused {
-      color: ${colors.green};
+      color: ${colors.primary};
     }
   }
 `;
@@ -26,7 +26,7 @@ export const StyledLabel = styled(InputLabel)`
 export const StyledSelect = styled(MuiSelect)`
   && {
     color: ${(props) => props.theme.text.black};
-    background-color: ${(props) => props.theme.bg.light};
+    background-color: ${(props) => props.theme.bg.grey};
 
     svg,
     path {
@@ -47,13 +47,17 @@ export const StyledInputWrapper = styled(InputWrapper)`
   .MuiOutlinedInput-root {
     border-radius: 2px;
 
+    fieldset {
+      border: 1px solid ${colors.grey};
+    }
+
     &:hover fieldset {
-      border: 1px solid ${colors.green};
+      border: 1px solid ${colors.primary};
     }
 
     &.Mui-focused {
       fieldset {
-        border: 1px solid ${colors.green};
+        border: 1px solid ${colors.primary};
       }
     }
 
@@ -92,7 +96,6 @@ const Select = React.forwardRef<HTMLSelectElement, Props>((props, ref) => (
         value={props.value}
         onChange={props.onChange}
         ref={ref}
-        {...props}
       >
         {props.options.map((item) => (
           <MenuItem key={item.value} value={item.value}>

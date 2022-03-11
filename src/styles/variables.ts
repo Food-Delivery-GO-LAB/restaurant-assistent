@@ -11,7 +11,7 @@ export const colors = {
   green: '#51ACAE',
   green_hover: '#38999B',
   green_lighter: '#97CDCE',
-  error: '#D40000',
+  error: '#fd621e',
   shadows: {
     success:
       '0px 1px 4px rgba(68, 214, 0, 0.25), 0px 3px 12px 2px rgba(68, 214, 0, 0.35)',

@@ -1,11 +1,10 @@
-import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../../styles/variables';
 
 const TextArea = styled.textarea`
   margin: 8px 0;
   width: 100%;
-  background-color: ${(props) => props.theme.bg.light};
+  background-color: ${(props) => props.theme.bg.grey};
   outline: none;
   border: 1px solid #dbdbdd;
   border-radius: 2px;
@@ -16,7 +15,7 @@ const TextArea = styled.textarea`
   transition: border-color ease 0.25s, box-shadow ease 0.15s;
   &:focus,
   &:hover {
-    border-color: ${colors.green};
+    border-color: ${colors.primary};
   }
   &:placeholder-shown ~ span {
     display: none;

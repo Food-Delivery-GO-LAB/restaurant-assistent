@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Title from '../../../components/typography/title';
 import Spinner from '../../../components/loaders/spinner';
 import { useDishes } from '../../../services/queries/use-dish';
@@ -16,14 +17,20 @@ import {
 import Text from '../../../components/typography/text';
 import Button from '../../../components/buttons';
 import EditIcon from '../../../components/icons/edit.icon';
+import { Dish } from '../../../types/dish.types';
 
 const MenuList = () => {
+  const navigate = useNavigate();
   const dishes = useDishes('02fb44e3-5f18-45eb-80a1-d8b4e8a22f1b');
+
+  const handleClick = (dish: Dish) => {
+    navigate(`/menu/${dish.id}`, { state: dish });
+  };
 
   return (
     <Wrapper>
       <Spinner loading={dishes.isLoading}>
-        <MenuTitle position="left" size="md">
+        <MenuTitle position="left" size="lg" fontWeight="400">
           Restaurant Menu
         </MenuTitle>
         <MenuWrapper>
@@ -54,7 +61,11 @@ const MenuList = () => {
                       <Text size="md">
                         <b>{dish.cost} BYN</b>
                       </Text>
-                      <Button buttonType="primary" startIcon={<EditIcon />}>
+                      <Button
+                        buttonType="primary"
+                        startIcon={<EditIcon />}
+                        onClick={() => handleClick(dish)}
+                      >
                         Edit
                       </Button>
                     </RightSide>

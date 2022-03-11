@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyledButton } from './active-orders.style';
 import { ButtonProps } from '../../../components/buttons/button.types';
 import { useUpdateOrderStatus } from '../../../services/mutations/use-orders';
+import Button from '../../../components/buttons';
 
 interface Props extends ButtonProps {
   id: string;
@@ -21,14 +21,14 @@ const ActiveOrderButton: React.FC<Props> = ({
   const updateOrderStatus = useUpdateOrderStatus();
 
   return (
-    <StyledButton
+    <Button
       buttonType={buttonType}
       loading={updateOrderStatus.isLoading}
       onClick={() => updateOrderStatus.mutate({ id, status })}
+      startIcon={icon}
     >
-      {icon}
       {text}
-    </StyledButton>
+    </Button>
   );
 };
 

@@ -55,7 +55,7 @@ const hasStartIconStyles = css`
 
 const StyledInput = styled.input<InputProps>`
   width: 100%;
-  background-color: ${(props) => props.theme.bg.light};
+  background-color: ${(props) => props.theme.bg.grey};
   outline: none;
   border: 1px solid ${colors.grey};
   border-radius: 2px;
@@ -67,7 +67,7 @@ const StyledInput = styled.input<InputProps>`
 
   &:focus,
   &:hover {
-    border-color: ${colors.green};
+    border-color: ${colors.primary};
   }
 
   &:placeholder-shown ~ span {
