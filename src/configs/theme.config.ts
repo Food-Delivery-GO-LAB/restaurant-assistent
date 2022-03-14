@@ -5,6 +5,7 @@ export interface CustomTheme {
   bg: {
     main: string;
     light: string;
+    grey: string;
   };
   text: {
     primary: string;
@@ -61,6 +62,7 @@ export const theme = createTheme({
   bg: {
     main: '#fff',
     light: '#FDF6F0',
+    grey: '#f8f8f8',
   },
   text: {
     primary: colors.primary,

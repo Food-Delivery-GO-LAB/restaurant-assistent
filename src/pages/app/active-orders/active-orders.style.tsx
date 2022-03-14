@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { colors } from '../../../styles/variables';
 import { Status } from '../../../types/orders.types';
 import { changeStatusColor } from '../../../utils/check-order-status';
-import Button from '../../../components/buttons/button';
 
 export const Wrapper = styled.div`
   padding: 2em 3em;
@@ -28,14 +27,6 @@ export const ButtonContainer = styled.div`
   }
   button:last-of-type {
     border: 1px solid ${colors.dark};
-  }
-`;
-
-export const StyledButton = styled(Button)`
-  && {
-    svg {
-      margin-right: 5px;
-    }
   }
 `;
 

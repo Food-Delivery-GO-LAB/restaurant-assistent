@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconType } from '../../types/icon.types';
 
-const CancelIcon: IconType = ({ size }) => (
+const LogoutIcon: IconType = ({ size }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
@@ -9,8 +9,11 @@ const CancelIcon: IconType = ({ size }) => (
     height={size ?? '16'}
   >
     <path fill="none" d="M0 0h24v24H0z" />
-    <path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
+    <path
+      d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v3h-2V4H6v16h12v-2h2v3a1 1 0 0 1-1 1H5zm13-6v-3h-7v-2h7V8l5 4-5 4z"
+      fill="rgba(255,255,255,1)"
+    />
   </svg>
 );
 
-export default CancelIcon;
+export default LogoutIcon;

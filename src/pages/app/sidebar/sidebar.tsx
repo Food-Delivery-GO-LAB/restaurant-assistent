@@ -11,6 +11,7 @@ import {
   StyledNavLink,
   TopSection,
 } from './sidebar.style';
+import LogoutIcon from '../../../components/icons/log-out.icon';
 
 const NavBar = () => (
   <OrdersNav>
@@ -31,7 +32,9 @@ const NavBar = () => (
 
 const Logout = () => (
   <NavLink to="/">
-    <LogoutStyle buttonType="primary">Log out</LogoutStyle>
+    <LogoutStyle buttonType="primary" startIcon={<LogoutIcon />}>
+      Log out
+    </LogoutStyle>
   </NavLink>
 );
 

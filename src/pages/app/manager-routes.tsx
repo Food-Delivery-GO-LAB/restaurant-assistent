@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Spinner from '../../components/loaders/spinner';
+import MenuForm from './menu/menu-form';
 
 const ManagerPage = React.lazy(() => import('./manager-page'));
 const ActiveOrders = React.lazy(() => import('./active-orders'));
@@ -32,6 +33,7 @@ const ManagerRoutes = () => (
           </React.Suspense>
         }
       />
+      <Route path="menu/:id" element={<MenuForm />} />
     </Route>
   </Routes>
 );

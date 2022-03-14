@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Title from '../../../components/typography/title';
 import Text from '../../../components/typography/text';
 import { colors } from '../../../styles/variables';
+import { DishStatus } from '../../../types/dish.types';
 
 export const Wrapper = styled.div`
   padding: 2em 3em;
@@ -20,7 +21,8 @@ export const MenuWrapper = styled.div`
     display: none;
   }
   @media (min-width: 768px) {
-    width: 70%;
+    width: 100%;
+    padding-right: 20%;
   }
 `;
 
@@ -34,7 +36,7 @@ export const StyledList = styled.li`
   background-color: white;
   border-radius: 4px;
   margin: 1.5rem 0;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px 12px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07), 0 1px 12px 2px rgba(0, 0, 0, 0.1);
   gap: 1rem;
   overflow: hidden;
   img {
@@ -70,6 +72,9 @@ export const LeftSide = styled.div`
   h2 {
     text-align: left;
   }
+  @media (min-width: 768px) {
+    padding: 1.5rem 0;
+  }
 `;
 
 export const RightSide = styled.div`
@@ -89,7 +94,7 @@ export const RightSide = styled.div`
   @media (min-width: 768px) {
     align-items: flex-end;
     p {
-      margin-top: 30px;
+      margin-top: 35px;
     }
     button {
       width: unset;
@@ -97,8 +102,9 @@ export const RightSide = styled.div`
   }
 `;
 
-export const StatusText = styled(Text)<{ status: boolean }>`
+export const StatusText = styled(Text)<{ status: DishStatus }>`
   && {
-    color: ${(props) => (props.status ? colors.green : colors.grey)};
+    color: ${(props) =>
+      props.status === 'available' ? colors.green : colors.grey};
   }
 `;
