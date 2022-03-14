@@ -31,7 +31,7 @@ const textSizes = {
 
 interface TextProps {
   size?: 'xs' | 'sm' | 'md' | 'lg';
-  color?: 'white' | 'green' | 'black';
+  color?: 'primary' | 'white' | 'green' | 'black';
   className?: string;
   onClick?: () => void;
 }

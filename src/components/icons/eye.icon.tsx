@@ -1,5 +1,4 @@
 import React from 'react';
-import { sizes } from '../../styles/variables';
 import { IconType } from '../../types/icon.types';
 
 const EyeIcon: IconType = ({ size }) => (
