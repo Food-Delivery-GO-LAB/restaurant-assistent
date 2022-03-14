@@ -1,9 +1,10 @@
 FROM node:14-alpine3.15 as builder
 WORKDIR '/app'
 COPY package.json .
-RUN npm install --legacy-peer-deps
+COPY yarn.lock .
+RUN yarn install --legacy-peer-deps
 COPY ./ ./
-RUN npm run build --legacy-peer-deps
+RUN yarn run build --legacy-peer-deps
 
 FROM nginx
 EXPOSE 80
