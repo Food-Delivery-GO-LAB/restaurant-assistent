@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Title from '../../../components/typography/title';
 import Text from '../../../components/typography/text';
 import { colors } from '../../../styles/variables';
+import { DishStatus } from '../../../types/dish.types';
 
 export const Wrapper = styled.div`
   padding: 2em 3em;
@@ -20,7 +21,8 @@ export const MenuWrapper = styled.div`
     display: none;
   }
   @media (min-width: 768px) {
-    width: 70%;
+    width: 100%;
+    padding-right: 20%;
   }
 `;
 
@@ -100,8 +102,9 @@ export const RightSide = styled.div`
   }
 `;
 
-export const StatusText = styled(Text)<{ status: boolean }>`
+export const StatusText = styled(Text)<{ status: DishStatus }>`
   && {
-    color: ${(props) => (props.status ? colors.green : colors.grey)};
+    color: ${(props) =>
+      props.status === 'available' ? colors.green : colors.grey};
   }
 `;

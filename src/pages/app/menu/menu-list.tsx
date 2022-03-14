@@ -53,7 +53,9 @@ const MenuList = () => {
                           ⚖️ {dish.weight ?? 'Weight not specified'}
                         </Text>
                         <StatusText size="md" status={dish.status}>
-                          {dish.status ? '✔️ Available' : '❌ Unavailable'}
+                          {dish.status === 'available'
+                            ? '✔️ Available'
+                            : '❌ Unavailable'}
                         </StatusText>
                       </div>
                     </LeftSide>

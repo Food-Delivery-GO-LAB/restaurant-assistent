@@ -1,5 +1,5 @@
 import React from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useLocation, useParams } from 'react-router-dom';
@@ -31,7 +31,7 @@ const ValidationSchema: yup.SchemaOf<UpdatedDish> = yup.object({
     .typeError('Cost must be a number')
     .required('Cost is required'),
   description: yup.string().required('Description is required'),
-  status: yup.boolean().required('Status is required'),
+  status: yup.string().required('Status is required'),
   image: yup.string().required('Image is required'),
   type: yup.string().required('Type is required'),
   cookingTime: yup
@@ -51,16 +51,19 @@ const MenuForm = () => {
   const dishData = location.state as Dish;
 
   const [imageUrl, setImageUrl] = React.useState(dishData.image);
-  const [status, setStatus] = React.useState('');
   const [file, setFile] = React.useState<File | Blob>();
 
   const {
+    control,
     register,
     reset,
     handleSubmit,
     formState: { errors },
   } = useForm<UpdatedDish>({
     resolver: yupResolver(ValidationSchema),
+    defaultValues: {
+      status: 'unavailable',
+    },
   });
 
   const uploadImage = useUpload();
@@ -94,10 +97,6 @@ const MenuForm = () => {
     { name: 'Unavailable', value: 'unavailable' },
   ];
 
-  const handleStatusChange = (event: any) => {
-    setStatus(event.target.value as string);
-  };
-
   return (
     <Wrapper>
       <Title position="left" size="lg" fontWeight="400">
@@ -117,17 +116,16 @@ const MenuForm = () => {
               error={errors.cost?.message}
               type="number"
               min={0}
+              step="any"
               label="Cost"
               defaultValue={dishData.cost ?? 0}
             />
-            <Select
-              /* {...register('status')} */
-              errormsg={errors.status?.message}
-              options={options}
-              onChange={handleStatusChange}
-              label="Status"
-              required
-              defaultValue={dishData.status ? 'available' : 'unavailable'}
+            <Controller
+              name="status"
+              control={control}
+              render={({ field }) => (
+                <Select {...field} options={options} label="Status" required />
+              )}
             />
             <Input
               {...register('type')}
@@ -148,6 +146,7 @@ const MenuForm = () => {
               error={errors.weight?.message}
               type="number"
               min={0}
+              step="0.01"
               label="Weight"
               defaultValue={dishData.weight ?? 0}
             />

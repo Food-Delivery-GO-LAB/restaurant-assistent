@@ -81,7 +81,7 @@ export const StyledErrorText = styled(FormHelperText)`
 `;
 
 interface Props extends SelectProps {
-  errormsg?: string;
+  error?: boolean;
   label?: string;
   options: { value: string | number; name: string }[];
 }
@@ -89,7 +89,7 @@ interface Props extends SelectProps {
 const Select = React.forwardRef<HTMLSelectElement, Props>((props, ref) => (
   <StyledInputWrapper>
     <StyledLabel id="demo-customized-select-label">{props.label}</StyledLabel>
-    <FormControl error={!!props.errormsg} required={props.required} fullWidth>
+    <FormControl error={props.error} required={props.required} fullWidth>
       <StyledSelect
         labelId="demo-customized-select-label"
         id="demo-customized-select"
@@ -103,7 +103,7 @@ const Select = React.forwardRef<HTMLSelectElement, Props>((props, ref) => (
           </MenuItem>
         ))}
       </StyledSelect>
-      <StyledErrorText>{props.errormsg}</StyledErrorText>
+      <StyledErrorText>{props.error}</StyledErrorText>
     </FormControl>
   </StyledInputWrapper>
 ));

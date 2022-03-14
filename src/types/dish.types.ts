@@ -1,10 +1,12 @@
+export type DishStatus = 'available' | 'unavailable';
+
 export interface Dish {
   cost: number;
   description: string;
   id: string;
   image: string;
   name: string;
-  status: boolean;
+  status: DishStatus;
   type: string;
   weight: number;
 }
@@ -15,7 +17,7 @@ export interface UpdatedDish {
   description: string;
   image: string;
   name: string;
-  status: boolean;
+  status: string;
   type: string;
   weight: number;
 }
