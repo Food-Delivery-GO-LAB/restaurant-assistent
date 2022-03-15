@@ -3,13 +3,30 @@ import Title from '../../../components/typography/title';
 import Text from '../../../components/typography/text';
 import { colors } from '../../../styles/variables';
 import { DishStatus } from '../../../types/dish.types';
+import Button from '../../../components/buttons';
 
 export const Wrapper = styled.div`
   padding: 2em 3em;
 `;
+
+export const TitleHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+
+  button {
+    width: max-content !important;
+  }
+
+  @media (min-width: 768px) {
+    width: 100%;
+    padding-right: 20%;
+  }
+`;
+
 export const MenuTitle = styled(Title)`
   text-align: left;
-  margin-bottom: 5px;
 `;
 
 export const MenuWrapper = styled.div`
@@ -84,7 +101,7 @@ export const RightSide = styled.div`
   padding: 1.5rem 2rem;
 
   button {
-    width: 100%;
+    width: 50%;
   }
 
   p {
@@ -102,9 +119,56 @@ export const RightSide = styled.div`
   }
 `;
 
+export const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 5px;
+`;
+
 export const StatusText = styled(Text)<{ status: DishStatus }>`
   && {
     color: ${(props) =>
       props.status === 'available' ? colors.green : colors.grey};
+  }
+`;
+
+export const DeleteButton = styled(Button)`
+  && {
+    padding: 10px !important;
+    width: max-content;
+    min-width: unset;
+    @media (max-width: 768px) {
+      width: 50%;
+      svg {
+        margin-right: 8px;
+      }
+    }
+  }
+`;
+
+export const HiddenText = styled.span`
+  display: none;
+  @media (max-width: 768px) {
+    display: initial;
+  }
+`;
+
+export const ModalWrapper = styled.div`
+  width: 400px;
+  min-height: 170px;
+  padding: 1em 2.9em;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin-top: 1.7em;
+  }
+
+  div {
+    margin-top: 2em;
+    display: flex;
+    gap: 10px;
+  }
+  button {
+    width: 100%;
   }
 `;

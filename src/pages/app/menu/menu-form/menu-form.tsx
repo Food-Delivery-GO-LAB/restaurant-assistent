@@ -2,7 +2,7 @@ import React from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useLocation, useParams } from 'react-router-dom';
+import { UseMutationResult } from 'react-query';
 import {
   Container,
   FormContainer,
@@ -21,8 +21,8 @@ import FileInput from '../../../../components/inputs/file-input';
 import PlusIcon from '../../../../components/icons/plus.icon';
 import Button from '../../../../components/buttons';
 import { useUpload } from '../../../../services/mutations/use-upload';
-import { Dish, UpdatedDish } from '../../../../types/dish.types';
-import { useUpdateDish } from '../../../../services/mutations/use-dishes';
+import { Dish, NewDish, UpdatedDish } from '../../../../types/dish.types';
+import { useDishTypes } from '../../../../services/queries/use-dish';
 
 const ValidationSchema: yup.SchemaOf<UpdatedDish> = yup.object({
   name: yup.string().required('Dish name is required'),
@@ -44,13 +44,20 @@ const ValidationSchema: yup.SchemaOf<UpdatedDish> = yup.object({
     .required('Weight is required'),
 });
 
-const MenuForm = () => {
-  const { id } = useParams<{ id: string }>();
+interface Props {
+  title: string;
+  dishData?: Dish;
+  addDish?: UseMutationResult<any, unknown, NewDish, unknown>;
+  updateDish?: UseMutationResult<any, unknown, UpdatedDish, unknown>;
+}
 
-  const location = useLocation();
-  const dishData = location.state as Dish;
-
-  const [imageUrl, setImageUrl] = React.useState(dishData.image);
+const MenuForm: React.FC<Props> = ({
+  title,
+  dishData,
+  addDish,
+  updateDish,
+}) => {
+  const [imageUrl, setImageUrl] = React.useState(dishData && dishData.image);
   const [file, setFile] = React.useState<File | Blob>();
 
   const {
@@ -62,12 +69,13 @@ const MenuForm = () => {
   } = useForm<UpdatedDish>({
     resolver: yupResolver(ValidationSchema),
     defaultValues: {
-      status: 'unavailable',
+      status: dishData?.status,
+      type: dishData?.type,
     },
   });
 
   const uploadImage = useUpload();
-  const updateDish = useUpdateDish(id);
+  const dishTypes = useDishTypes();
 
   const handleImageUpload = (event: any) => {
     const logoFile = event.target.files[0];
@@ -75,21 +83,40 @@ const MenuForm = () => {
     setImageUrl(URL.createObjectURL(logoFile));
   };
 
-  const onSubmit: SubmitHandler<UpdatedDish> = (data) => {
-    updateDish.mutate(
-      {
-        ...data,
-      },
-      {
-        onSuccess(res) {
-          if (file) {
-            uploadImage.mutate({ file, id: res.id });
-          }
-          reset();
-          setImageUrl('');
+  const onSubmit: SubmitHandler<UpdatedDish | NewDish> = (data) => {
+    if (updateDish) {
+      updateDish.mutate(
+        {
+          ...data,
         },
-      }
-    );
+        {
+          onSuccess(res) {
+            if (file) {
+              uploadImage.mutate({ file, id: res.id });
+            }
+            reset();
+            setImageUrl('');
+          },
+        }
+      );
+    }
+    if (addDish) {
+      addDish.mutate(
+        {
+          ...data,
+          restaurantId: '02fb44e3-5f18-45eb-80a1-d8b4e8a22f1b',
+        },
+        {
+          onSuccess(res) {
+            if (file) {
+              uploadImage.mutate({ file, id: res.data });
+            }
+            reset();
+            setImageUrl('');
+          },
+        }
+      );
+    }
   };
 
   const options = [
@@ -97,10 +124,18 @@ const MenuForm = () => {
     { name: 'Unavailable', value: 'unavailable' },
   ];
 
+  const typeOptions: { name: string; value: string }[] = [];
+
+  if (dishTypes.data) {
+    dishTypes.data.map((type) =>
+      typeOptions.push({ name: type.name, value: type.id })
+    );
+  }
+
   return (
     <Wrapper>
       <Title position="left" size="lg" fontWeight="400">
-        Editing dish
+        {title}
       </Title>
       <Container>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -109,7 +144,7 @@ const MenuForm = () => {
               {...register('name')}
               error={errors.name?.message}
               label="Dish Name"
-              defaultValue={dishData.name}
+              defaultValue={dishData?.name}
             />
             <Input
               {...register('cost')}
@@ -118,20 +153,23 @@ const MenuForm = () => {
               min={0}
               step="any"
               label="Cost"
-              defaultValue={dishData.cost ?? 0}
+              defaultValue={dishData?.cost}
             />
             <Controller
               name="status"
               control={control}
+              rules={{ required: true }}
               render={({ field }) => (
-                <Select {...field} options={options} label="Status" required />
+                <Select {...field} options={options} label="Status" />
               )}
             />
-            <Input
-              {...register('type')}
-              error={errors.type?.message}
-              label="Type"
-              defaultValue={dishData.type}
+            <Controller
+              name="type"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <Select {...field} options={typeOptions} label="Type" />
+              )}
             />
             <Input
               {...register('cookingTime')}
@@ -148,7 +186,7 @@ const MenuForm = () => {
               min={0}
               step="0.01"
               label="Weight"
-              defaultValue={dishData.weight ?? 0}
+              defaultValue={dishData?.weight ?? 0}
             />
             <StyledArea>
               <Label>Description</Label>
@@ -158,7 +196,7 @@ const MenuForm = () => {
                 minLength={6}
                 maxLength={100}
                 rows={3}
-                defaultValue={dishData.description}
+                defaultValue={dishData?.description}
               />
             </StyledArea>
             <LogoContainer>
@@ -169,10 +207,14 @@ const MenuForm = () => {
                 </UploadArea>
                 <FileInput {...register('image')} id="image" label="Image" />
               </Label>
-              <LogoArea src={imageUrl} />
+              <LogoArea src={imageUrl ?? ''} />
             </LogoContainer>
           </FormContainer>
-          <Button loading={updateDish.isLoading} type="submit" color="primary">
+          <Button
+            loading={addDish?.isLoading || updateDish?.isLoading}
+            type="submit"
+            color="primary"
+          >
             Submit
           </Button>
         </form>

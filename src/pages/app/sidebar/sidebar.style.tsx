@@ -49,7 +49,7 @@ export const TopSection = styled(Box)(
 export const StyledButton = styled(Button)`
   && {
     position: relative;
-    color: ${colors.primary};
+    color: ${colors.dark};
     width: 100%;
     padding: 1rem 0;
     border: none;
@@ -66,6 +66,9 @@ export const StyledNavLink = styled(NavLink)`
   display: flex;
   &.active {
     box-shadow: inset 3px 0 0 0 ${colors.primary};
+    button {
+      color: ${colors.primary};
+    }
   }
 `;
 
