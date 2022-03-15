@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Spinner from '../../components/loaders/spinner';
 import MenuForm from './menu/menu-form';
+import AddDish from './menu/add-dish';
+import EditDish from './menu/edit-dish';
 
 const ManagerPage = React.lazy(() => import('./manager-page'));
 const ActiveOrders = React.lazy(() => import('./active-orders'));
@@ -33,7 +35,8 @@ const ManagerRoutes = () => (
           </React.Suspense>
         }
       />
-      <Route path="menu/:id" element={<MenuForm />} />
+      <Route path="menu/add-dish" element={<AddDish />} />
+      <Route path="menu/edit-dish/:id" element={<EditDish />} />
     </Route>
   </Routes>
 );

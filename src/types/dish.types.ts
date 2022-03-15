@@ -21,3 +21,7 @@ export interface UpdatedDish {
   type: string;
   weight: number;
 }
+
+export interface NewDish extends UpdatedDish {
+  restaurantId: string;
+}

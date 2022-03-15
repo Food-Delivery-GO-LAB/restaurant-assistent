@@ -4,35 +4,65 @@ import Title from '../../../components/typography/title';
 import Spinner from '../../../components/loaders/spinner';
 import { useDishes } from '../../../services/queries/use-dish';
 import {
+  ButtonsContainer,
+  DeleteButton,
   DescriptionContainer,
+  HiddenText,
   LeftSide,
   MenuContainer,
   MenuTitle,
   MenuWrapper,
+  ModalWrapper,
   RightSide,
   StatusText,
   StyledList,
+  TitleHeader,
   Wrapper,
 } from './menu-list.style';
 import Text from '../../../components/typography/text';
 import Button from '../../../components/buttons';
 import EditIcon from '../../../components/icons/edit.icon';
 import { Dish } from '../../../types/dish.types';
+import AddIcon from '../../../components/icons/add.icon';
+import DeleteIcon from '../../../components/icons/delete.icon';
+import { useDeleteDish } from '../../../services/mutations/use-dishes';
+import { useModal } from '../../../hooks/use-modal';
+import Modal from '../../../components/modal';
 
 const MenuList = () => {
+  const modal = useModal();
   const navigate = useNavigate();
   const dishes = useDishes('02fb44e3-5f18-45eb-80a1-d8b4e8a22f1b');
+  const deleteDish = useDeleteDish();
 
   const handleClick = (dish: Dish) => {
-    navigate(`/menu/${dish.id}`, { state: dish });
+    navigate(`/menu/edit-dish/${dish.id}`, { state: dish });
+  };
+
+  const handleAddDish = () => {
+    navigate(`/menu/add-dish`);
+  };
+
+  const handleDelete = (id: string) => {
+    deleteDish.mutate(id);
+    modal.close();
   };
 
   return (
     <Wrapper>
       <Spinner loading={dishes.isLoading}>
-        <MenuTitle position="left" size="lg" fontWeight="400">
-          Restaurant Menu
-        </MenuTitle>
+        <TitleHeader>
+          <MenuTitle position="left" size="lg" fontWeight="400">
+            Restaurant Menu
+          </MenuTitle>
+          <Button
+            buttonType="primary"
+            startIcon={<AddIcon />}
+            onClick={handleAddDish}
+          >
+            Add dish
+          </Button>
+        </TitleHeader>
         <MenuWrapper>
           <MenuContainer>
             {dishes.data &&
@@ -42,7 +72,9 @@ const MenuList = () => {
                   <DescriptionContainer>
                     <LeftSide>
                       <div>
-                        <Title size="sm">{dish.name}</Title>
+                        <Title size="sm" fontWeight="500">
+                          {dish.name}
+                        </Title>
                         <Text size="md">🍽️ {dish.type}</Text>
                         <Text size="md">
                           💬{' '}
@@ -63,13 +95,43 @@ const MenuList = () => {
                       <Text size="md">
                         <b>{dish.cost} BYN</b>
                       </Text>
-                      <Button
-                        buttonType="primary"
-                        startIcon={<EditIcon />}
-                        onClick={() => handleClick(dish)}
-                      >
-                        Edit
-                      </Button>
+                      <ButtonsContainer>
+                        <Button
+                          buttonType="primary"
+                          startIcon={<EditIcon />}
+                          onClick={() => handleClick(dish)}
+                        >
+                          Edit
+                        </Button>
+                        <DeleteButton
+                          buttonType="secondary"
+                          onClick={() => modal.open()}
+                        >
+                          <DeleteIcon />
+                          <HiddenText>Delete</HiddenText>
+                        </DeleteButton>
+                        <Modal open={modal.isOpen} onClose={modal.close}>
+                          <ModalWrapper>
+                            <Title size="sm" fontWeight="500">
+                              Are you sure you want to delete the dish?
+                            </Title>
+                            <div>
+                              <Button
+                                buttonType="secondary"
+                                onClick={() => modal.close()}
+                              >
+                                Cancel
+                              </Button>
+                              <Button
+                                buttonType="primary"
+                                onClick={() => handleDelete(dish.id)}
+                              >
+                                Yes
+                              </Button>
+                            </div>
+                          </ModalWrapper>
+                        </Modal>
+                      </ButtonsContainer>
                     </RightSide>
                   </DescriptionContainer>
                 </StyledList>

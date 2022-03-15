@@ -93,7 +93,7 @@ const Select = React.forwardRef<HTMLSelectElement, Props>((props, ref) => (
       <StyledSelect
         labelId="demo-customized-select-label"
         id="demo-customized-select"
-        value={props.value}
+        value={props.value ?? ''}
         onChange={props.onChange}
         ref={ref}
       >
