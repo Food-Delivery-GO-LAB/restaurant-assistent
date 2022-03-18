@@ -3,6 +3,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UseMutationResult } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   FormContainer,
@@ -57,6 +58,7 @@ const MenuForm: React.FC<Props> = ({
   addDish,
   updateDish,
 }) => {
+  const navigate = useNavigate();
   const [imageUrl, setImageUrl] = React.useState(dishData && dishData.image);
   const [file, setFile] = React.useState<File | Blob>();
 
@@ -70,7 +72,6 @@ const MenuForm: React.FC<Props> = ({
     resolver: yupResolver(ValidationSchema),
     defaultValues: {
       status: dishData?.status,
-      type: dishData?.type,
     },
   });
 
@@ -90,12 +91,13 @@ const MenuForm: React.FC<Props> = ({
           ...data,
         },
         {
-          onSuccess(res) {
-            if (file) {
-              uploadImage.mutate({ file, id: res.id });
+          onSuccess() {
+            if (file && dishData) {
+              uploadImage.mutate({ file, id: dishData?.id });
             }
             reset();
             setImageUrl('');
+            navigate('/menu');
           },
         }
       );
@@ -113,24 +115,17 @@ const MenuForm: React.FC<Props> = ({
             }
             reset();
             setImageUrl('');
+            navigate('/menu');
           },
         }
       );
     }
   };
 
-  const options = [
-    { name: 'Available', value: 'available' },
-    { name: 'Unavailable', value: 'unavailable' },
-  ];
+  const statusOptions = [{ name: 'available' }, { name: 'unavailable' }];
 
-  const typeOptions: { name: string; value: string }[] = [];
-
-  if (dishTypes.data) {
-    dishTypes.data.map((type) =>
-      typeOptions.push({ name: type.name, value: type.id })
-    );
-  }
+  const typeOptions =
+    dishTypes.data && dishTypes.data.map((type) => ({ name: type.name }));
 
   return (
     <Wrapper>
@@ -160,12 +155,13 @@ const MenuForm: React.FC<Props> = ({
               control={control}
               rules={{ required: true }}
               render={({ field }) => (
-                <Select {...field} options={options} label="Status" />
+                <Select {...field} options={statusOptions} label="Status" />
               )}
             />
             <Controller
               name="type"
               control={control}
+              defaultValue={dishData?.type}
               rules={{ required: true }}
               render={({ field }) => (
                 <Select {...field} options={typeOptions} label="Type" />

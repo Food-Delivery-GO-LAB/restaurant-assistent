@@ -24,7 +24,7 @@ const ActiveOrderButton: React.FC<Props> = ({
     <Button
       buttonType={buttonType}
       loading={updateOrderStatus.isLoading}
-      onClick={() => updateOrderStatus.mutate({ id, status })}
+      onClick={() => updateOrderStatus.mutate({ id, status, deliveryType: 1 })}
       startIcon={icon}
     >
       {text}
