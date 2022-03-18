@@ -15,7 +15,9 @@ const DishModal: React.FC<{ id: string }> = ({ id }) => {
   return (
     <ModalWrapper>
       <Spinner loading={dishes.isLoading} height="10vh">
-        <Title size="md">Dishes</Title>
+        <Title size="md" fontWeight="500">
+          Dishes
+        </Title>
         <DishWrapper>
           <DishContainer>
             <Text color="primary">Dish</Text>

@@ -4,21 +4,26 @@ import MenuTwoTone from '@mui/icons-material/MenuTwoTone';
 import CloseTwoTone from '@mui/icons-material/CloseTwoTone';
 import { useMatch } from 'react-router-dom';
 import { SidebarContext } from '../../context/sidebar-context';
-import { HeaderWrapper, StyledTitle } from './header.style';
+import { HeaderWrapper, StyledLink, StyledTitle } from './header.style';
+import Title from '../../components/typography/title';
 
 function Header() {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
-  const match = useMatch('/courier/:orders');
+  const match = useMatch('/menu');
   const headerTitle = match && match.params.orders?.split('_').join(' ');
   return (
     <HeaderWrapper display="flex" alignItems="center">
       <Box display="flex" alignItems="center">
-        <Hidden lgUp>Logo here</Hidden>
+        <StyledLink to="/active-orders">
+          <Hidden lgUp>Restaurant Assistant</Hidden>
+        </StyledLink>
         {/* <Hidden mdDown>Header menu</Hidden> */}
         <StyledTitle>{headerTitle}</StyledTitle>
       </Box>
       <Box display="flex" alignItems="center">
-        Hello, Manager
+        <Title size="sm" fontWeight="500">
+          Hello, Manager
+        </Title>
         <Hidden lgUp>
           <Tooltip arrow title="Toggle Menu">
             <IconButton color="primary" onClick={toggleSidebar}>

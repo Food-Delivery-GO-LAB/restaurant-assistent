@@ -9,7 +9,7 @@ export const useDishes = (id: string) =>
       .then((res) => res.data.data)
   );
 
-interface DishType {
+export interface DishType {
   name: string;
   id: string;
 }
