@@ -7,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { useState } from 'react';
 import { ButtonContainer, StyledStatus, Wrapper } from './active-orders.style';
 import Title from '../../../components/typography/title';
 import Button from '../../../components/buttons/button';
@@ -21,16 +20,12 @@ import Spinner from '../../../components/loaders/spinner';
 import DeliveryIcon from '../../../components/icons/delivery.icon';
 import CheckIcon from '../../../components/icons/check.icon';
 import CancelIcon from '../../../components/icons/cancel.icon';
+import DishModal from './dish-modal';
+import PassToCourier from './pass-to-courier';
+import { useUpdateOrderStatus } from '../../../services/mutations/use-orders';
 
 interface Column {
-  id:
-    | 'orderId'
-    | 'date'
-    | 'address'
-    | 'dishes'
-    | 'total'
-    | 'status'
-    | 'actions';
+  id: string;
   label: string;
 }
 
@@ -41,18 +36,31 @@ const columns: readonly Column[] = [
   { id: 'dishes', label: 'Dishes' },
   { id: 'total', label: 'Total' },
   { id: 'status', label: 'Status' },
+  { id: 'delivery', label: 'Restaurant Delivery' },
   { id: 'actions', label: 'Actions' },
 ];
 
 const ActiveOrders = () => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [orderId, setOrderId] = useState('');
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [orderId, setOrderId] = React.useState('');
 
   const dishModal = useModal();
-  const DishModal = React.lazy(() => import('./dish-modal'));
 
-  const orders = useOrders({ limit: 10 });
+  const orders = useOrders({
+    limit: 10,
+    page: 1,
+    restaurantId: '02fb44e3-5f18-45eb-80a1-d8b4e8a22f1b',
+  });
+  const updateOrderStatus = useUpdateOrderStatus();
+
+  const handleDelivery = (id: string) => {
+    updateOrderStatus.mutate({
+      id,
+      status: OrderStatusNum.READY_FOR_DELIVERY,
+      deliveryType: 1,
+    });
+  };
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -110,7 +118,7 @@ const ActiveOrders = () => {
                         <TableCell>{order.orderId}</TableCell>
                         <TableCell>
                           {new Date(order.date).toLocaleTimeString()}
-                          {', '}
+                          {'. '}
                           {new Date(order.date).toLocaleDateString()}
                         </TableCell>
                         <TableCell>{order.address}</TableCell>
@@ -128,16 +136,14 @@ const ActiveOrders = () => {
                             open={dishModal.isOpen}
                             onClose={dishModal.close}
                           >
-                            <React.Suspense fallback={<Spinner />}>
-                              <DishModal id={orderId} />
-                            </React.Suspense>
+                            <DishModal id={orderId} />
                           </Modal>
                         </TableCell>
                         <TableCell>{order.cost} BYN</TableCell>
                         <TableCell
                           sx={{
                             p: '10px',
-                            minWidth: 160,
+                            minWidth: 150,
                           }}
                         >
                           <StyledStatus status={order.status}>
@@ -145,15 +151,23 @@ const ActiveOrders = () => {
                           </StyledStatus>
                         </TableCell>
                         <TableCell>
+                          {order.status === OrderStatus.IN_PROGRESS && (
+                            <PassToCourier
+                              orderId={order.orderId}
+                              id={order.id}
+                            />
+                          )}
+                        </TableCell>
+                        <TableCell>
                           <ButtonContainer>
                             {order.status === OrderStatus.IN_PROGRESS && (
-                              <ActiveOrdersButton
+                              <Button
                                 buttonType="primary"
-                                id={order.id}
-                                icon={<DeliveryIcon />}
-                                text="Deliver"
-                                status={OrderStatusNum.READY_FOR_DELIVERY}
-                              />
+                                startIcon={<DeliveryIcon />}
+                                onClick={() => handleDelivery(order.id)}
+                              >
+                                Deliver
+                              </Button>
                             )}
                             {order.status === OrderStatus.NEW && (
                               <ActiveOrdersButton
@@ -182,7 +196,7 @@ const ActiveOrders = () => {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25, 50]}
+            rowsPerPageOptions={[10, 25, 50]}
             component="div"
             count={orders.data?.length ?? 0}
             rowsPerPage={rowsPerPage}

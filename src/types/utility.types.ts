@@ -1,6 +1,6 @@
 export interface Paginated<T> {
   count: number;
-  results: T[];
+  data: T[];
 }
 
 export interface ListFilters {

@@ -8,7 +8,7 @@ export const OrdersNav = styled(Box)`
   display: flex;
   flex-flow: column nowrap;
   align-items: flex-end;
-  margin-top: 2rem;
+  margin-top: 1rem;
 `;
 
 export const LogoutStyle = styled(Button)`
@@ -36,6 +36,13 @@ export const SidebarWrapper = styled(Box)(
 `
 );
 
+export const AdminName = styled(Box)`
+  width: 100%;
+  padding: 15px;
+  color: ${colors.white};
+  background-color: ${colors.primary};
+`;
+
 export const TopSection = styled(Box)(
   ({ theme }) => `
         display: flex;
@@ -49,7 +56,7 @@ export const TopSection = styled(Box)(
 export const StyledButton = styled(Button)`
   && {
     position: relative;
-    color: ${colors.primary};
+    color: ${colors.dark};
     width: 100%;
     padding: 1rem 0;
     border: none;
@@ -64,8 +71,19 @@ export const StyledButton = styled(Button)`
 export const StyledNavLink = styled(NavLink)`
   width: 100%;
   display: flex;
+  &:hover {
+    div {
+      background-color: ${colors.primary_hover};
+    }
+  }
   &.active {
     box-shadow: inset 3px 0 0 0 ${colors.primary};
+    button {
+      color: ${colors.primary};
+    }
+    &:hover button {
+      color: ${colors.primary_hover};
+    }
   }
 `;
 
@@ -75,5 +93,5 @@ export const StyledBadge = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: ${colors.green};
+  background-color: ${colors.primary};
 `;

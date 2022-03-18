@@ -8,3 +8,15 @@ export const useDishes = (id: string) =>
       .get<{ data: Dish[] }>(`/dish/restaurant/${id}`)
       .then((res) => res.data.data)
   );
+
+export interface DishType {
+  name: string;
+  id: string;
+}
+
+export const useDishTypes = () =>
+  useQuery('dishTypes', () =>
+    request
+      .get<{ data: DishType[] }>('/dish/types')
+      .then((res) => res.data.data)
+  );

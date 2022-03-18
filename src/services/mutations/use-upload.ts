@@ -13,7 +13,7 @@ export const useUpload = () => {
     const formData = new FormData();
     formData.append('file', data.file);
     return request
-      .post(`/restaurant/image/${data.id}`, formData, {
+      .post(`/dish/image/${data.id}`, formData, {
         headers: {
           'Content-Type': data.file.type,
         },

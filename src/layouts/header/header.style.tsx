@@ -1,5 +1,7 @@
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { colors } from '../../styles/variables';
 
 export const HeaderWrapper = styled(Box)(
   ({ theme }) => `
@@ -27,3 +29,10 @@ export const StyledTitle = styled('h3')(
     text-transform: capitalize;
     `
 );
+
+export const StyledLink = styled(Link)`
+  color: ${colors.primary};
+  &:hover {
+    color: ${colors.primary_hover};
+  }
+`;

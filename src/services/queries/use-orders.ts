@@ -1,15 +1,20 @@
 import { useQuery } from 'react-query';
+import qs from 'qs';
 import request from '../request';
 import { Order } from '../../types/orders.types';
 
 interface OrderRequests {
   limit: number;
+  page: number;
+  restaurantId: string;
 }
 
 export const useOrders = (data: OrderRequests) =>
   useQuery(['orders'], () =>
     request
-      .get<{ data: Order[] }>(`/order?limit=${data.limit}`)
+      .get<{ data: Order[] }>(
+        `/order${qs.stringify(data, { addQueryPrefix: true })}`
+      )
       .then((res) => res.data.data)
   );
 

@@ -3,6 +3,7 @@ import { Drawer, Hidden } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { SidebarContext } from '../../../context/sidebar-context';
 import {
+  AdminName,
   LogoutStyle,
   OrdersNav,
   SidebarWrapper,
@@ -24,9 +25,6 @@ const NavBar = () => (
     <StyledNavLink to="/menu">
       <StyledButton buttonType="text">Menu</StyledButton>
     </StyledNavLink>
-    <StyledNavLink to="/history">
-      <StyledButton buttonType="text">Order History</StyledButton>
-    </StyledNavLink>
   </OrdersNav>
 );
 
@@ -46,6 +44,7 @@ const Sidebar = () => {
     <>
       <Hidden lgDown>
         <SidebarWrapper>
+          <AdminName>Restaurant Assistant</AdminName>
           <NavBar />
           <Logout />
         </SidebarWrapper>

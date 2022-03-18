@@ -5,8 +5,10 @@ import FormControl from '@mui/material/FormControl';
 import styled from 'styled-components';
 import MuiSelect, { SelectProps } from '@mui/material/Select';
 import { FormHelperText } from '@mui/material';
+import { UseQueryResult } from 'react-query';
 import { colors } from '../../styles/variables';
 import InputWrapper from '../wrappers/input-wrapper';
+import { DishType } from '../../services/queries/use-dish';
 
 export const StyledLabel = styled(InputLabel)`
   && {
@@ -83,7 +85,7 @@ export const StyledErrorText = styled(FormHelperText)`
 interface Props extends SelectProps {
   error?: boolean;
   label?: string;
-  options: { value: string | number; name: string }[];
+  options: { name: string }[] | undefined;
 }
 
 const Select = React.forwardRef<HTMLSelectElement, Props>((props, ref) => (
@@ -93,15 +95,16 @@ const Select = React.forwardRef<HTMLSelectElement, Props>((props, ref) => (
       <StyledSelect
         labelId="demo-customized-select-label"
         id="demo-customized-select"
-        value={props.value}
+        value={props.value ?? ''}
         onChange={props.onChange}
         ref={ref}
       >
-        {props.options.map((item) => (
-          <MenuItem key={item.value} value={item.value}>
-            {item.name}
-          </MenuItem>
-        ))}
+        {props.options &&
+          props.options.map((item) => (
+            <MenuItem key={item.name} value={item.name}>
+              {item.name}
+            </MenuItem>
+          ))}
       </StyledSelect>
       <StyledErrorText>{props.error}</StyledErrorText>
     </FormControl>

@@ -16,12 +16,10 @@ const colors = {
   `,
   secondary: css`
     background-color: transparent;
-    border: 1px solid ${globalColors.green};
-    color: ${globalColors.green};
+    border: 1px solid ${globalColors.dark};
+    color: ${globalColors.dark};
     &:hover {
-      background-color: ${globalColors.white_lighter};
-      color: ${globalColors.green_hover};
-      border: 1px solid ${globalColors.green_hover};
+      border: 1px solid ${globalColors.primary_hover};
     }
   `,
   disabled: css`
