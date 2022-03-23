@@ -8,7 +8,7 @@ const ManagerPage = React.lazy(() => import('../pages/app/manager-page'));
 const ActiveOrders = React.lazy(() => import('../pages/app/active-orders'));
 const MenuList = React.lazy(() => import('../pages/app/menu'));
 
-const ManagerRoutes = () => (
+const ManagerRoute = () => (
   <Routes>
     <Route
       path="/"
@@ -19,7 +19,7 @@ const ManagerRoutes = () => (
       }
     >
       <Route
-        path="active-orders"
+        path=""
         element={
           <React.Suspense fallback={<Spinner />}>
             <ActiveOrders />
@@ -40,4 +40,4 @@ const ManagerRoutes = () => (
   </Routes>
 );
 
-export default ManagerRoutes;
+export default ManagerRoute;

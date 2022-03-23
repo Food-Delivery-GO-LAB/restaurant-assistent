@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { sizes } from '../../../../styles/variables';
+import { colors, sizes } from '../../../../styles/variables';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -61,6 +61,10 @@ export const UploadArea = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 8px;
+  transition: border-color ease 0.25s, box-shadow ease 0.15s;
+  &:hover {
+    border-color: ${colors.primary};
+  }
 `;
 
 export const LogoArea = styled.div<{ src: string }>`
