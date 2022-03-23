@@ -1,1 +1,1 @@
-export { default } from '../../routes/manager-routes';
+export { default } from '../../routes/manager.route';

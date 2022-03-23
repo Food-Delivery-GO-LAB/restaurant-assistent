@@ -3,16 +3,19 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from 'react-query';
 import queryClient from './configs/react-query.config';
 import { GlobalStyle } from './configs/styles.config';
-import ManagerRoutes from './pages/app';
+import AppPages from './routes';
+import AppProvider from './state/store';
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
-      <BrowserRouter>
-        <ManagerRoutes />
-      </BrowserRouter>
-    </QueryClientProvider>
+    <AppProvider>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
+        <BrowserRouter>
+          <AppPages />
+        </BrowserRouter>
+      </QueryClientProvider>
+    </AppProvider>
   );
 }
 

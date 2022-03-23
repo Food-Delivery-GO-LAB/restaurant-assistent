@@ -13,10 +13,11 @@ import {
   TopSection,
 } from './sidebar.style';
 import LogoutIcon from '../../../components/icons/log-out.icon';
+import { useAuth } from '../../../state/auth/auth.state';
 
 const NavBar = () => (
   <OrdersNav>
-    <StyledNavLink to="/active-orders">
+    <StyledNavLink to="/">
       <StyledButton buttonType="text">
         Active orders
         <StyledBadge />
@@ -28,13 +29,20 @@ const NavBar = () => (
   </OrdersNav>
 );
 
-const Logout = () => (
-  <NavLink to="/">
-    <LogoutStyle buttonType="primary" startIcon={<LogoutIcon />}>
-      Log out
-    </LogoutStyle>
-  </NavLink>
-);
+const Logout = () => {
+  const { logout } = useAuth();
+  return (
+    <NavLink to="/">
+      <LogoutStyle
+        buttonType="primary"
+        startIcon={<LogoutIcon />}
+        onClick={() => logout()}
+      >
+        Log out
+      </LogoutStyle>
+    </NavLink>
+  );
+};
 
 const Sidebar = () => {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
