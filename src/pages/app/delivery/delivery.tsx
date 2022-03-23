@@ -81,7 +81,11 @@ const Delivery: React.FC<IProps> = ({ id, orderId }) => {
                     <TableCell sx={style}>{service.ServiceName}</TableCell>
                     <TableCell sx={style}>{service.ServicePhone}</TableCell>
                     <TableCell sx={style}>{service.ServiceEmail}</TableCell>
-                    <TableCell sx={style}>{service.ServiceStatus}</TableCell>
+                    <TableCell sx={style}>
+                      {service.ServiceStatus === 'active'
+                        ? '✔️ Active'
+                        : '❌ Inactive'}
+                    </TableCell>
                     <TableCell sx={style}>
                       {service.ServiceStatus === 'active' && (
                         <Button onClick={() => handleClick(service.Id)}>

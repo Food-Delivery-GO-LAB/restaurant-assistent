@@ -59,7 +59,7 @@ const MenuForm: React.FC<Props> = ({
   updateDish,
 }) => {
   const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = React.useState(dishData && dishData.image);
+  const [imageUrl, setImageUrl] = React.useState(dishData?.image);
   const [file, setFile] = React.useState<File | Blob>();
 
   const {

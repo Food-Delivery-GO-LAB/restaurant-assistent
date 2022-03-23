@@ -4,11 +4,12 @@ import Box from '@mui/material/Box';
 import { Checkbox } from '@mui/material';
 import { useModal } from '../../../hooks/use-modal';
 import Button from '../../../components/buttons';
-import Modal from '../../../components/modal/modal';
+import Modal from '../../../components/modal';
 import Delivery from '../delivery/delivery';
 
 const StyledBox = styled(Box)`
   display: flex;
+  justify-content: center;
   gap: 10px;
 `;
 
@@ -16,18 +17,24 @@ const StyledCheckbox = styled(Checkbox)`
   padding: 4px;
 `;
 
-const PassToCourier: React.FC<{ id: string; orderId: number }> = ({
-  id,
-  orderId,
-}) => {
+interface Props {
+  id: string;
+  orderId: number;
+  onChecked: (value: boolean) => void;
+}
+
+const PassToCourier: React.FC<Props> = ({ id, orderId, onChecked }) => {
   const [checked, setChecked] = React.useState(true);
   const deliverModal = useModal();
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+    onChecked(checked);
+  };
+
   return (
     <StyledBox>
-      <StyledCheckbox
-        checked={checked}
-        onChange={() => setChecked((prev) => !prev)}
-      />
+      <StyledCheckbox checked={checked} onChange={handleChange} />
       {!checked && (
         <Button buttonType="primary" onClick={() => deliverModal.open()}>
           Pass to Courier

@@ -11,9 +11,9 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const StyledStatus = styled.span<{ status: Status }>`
+export const StyledStatus = styled.div<{ status: Status }>`
   padding: 7px 10px;
-  width: 100%;
+  width: max-content;
   background-color: ${(props) => changeStatusColor(props.status)};
   border-radius: 4px;
   text-align: center;

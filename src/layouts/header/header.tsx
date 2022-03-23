@@ -14,7 +14,7 @@ function Header() {
   return (
     <HeaderWrapper display="flex" alignItems="center">
       <Box display="flex" alignItems="center">
-        <StyledLink to="/active-orders">
+        <StyledLink to="/">
           <Hidden lgUp>Restaurant Assistant</Hidden>
         </StyledLink>
         {/* <Hidden mdDown>Header menu</Hidden> */}

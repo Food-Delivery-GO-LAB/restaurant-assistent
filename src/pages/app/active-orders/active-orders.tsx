@@ -23,6 +23,7 @@ import CancelIcon from '../../../components/icons/cancel.icon';
 import DishModal from './dish-modal';
 import PassToCourier from './pass-to-courier';
 import { useUpdateOrderStatus } from '../../../services/mutations/use-orders';
+import { ModalWrapper } from '../menu/menu-list.style';
 
 interface Column {
   id: string;
@@ -44,6 +45,7 @@ const ActiveOrders = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [orderId, setOrderId] = React.useState('');
+  const [checked, setChecked] = React.useState(false);
 
   const dishModal = useModal();
 
@@ -155,6 +157,7 @@ const ActiveOrders = () => {
                             <PassToCourier
                               orderId={order.orderId}
                               id={order.id}
+                              onChecked={(value: boolean) => setChecked(value)}
                             />
                           )}
                         </TableCell>
@@ -163,6 +166,7 @@ const ActiveOrders = () => {
                             {order.status === OrderStatus.IN_PROGRESS && (
                               <Button
                                 buttonType="primary"
+                                disabled={checked}
                                 startIcon={<DeliveryIcon />}
                                 onClick={() => handleDelivery(order.id)}
                               >
