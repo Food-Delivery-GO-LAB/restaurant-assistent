@@ -24,7 +24,6 @@ export const useLogin = () => {
         .then((res) => res.data),
     {
       onSuccess(data) {
-        console.log('loged as user');
         login({
           tokens: { access: data.accessToken, refresh: data.refreshToken },
         });

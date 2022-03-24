@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../state/auth/auth.state';
-import ManagerRoute from './manager.route';
-import AuthRoute from './auth.route';
+import ManagerRoute from './manager.routes';
+import AuthRoute from './auth.routes';
 
 const UnAuthenticatedRouter = () => (
   <>
@@ -15,7 +15,7 @@ const AuthenticatedRouter = () => (
   </>
 );
 
-const Pages = () => {
+const AppPages = () => {
   const user = useAuth();
   return (
     <>
@@ -28,4 +28,4 @@ const Pages = () => {
   );
 };
 
-export default Pages;
+export default AppPages;
