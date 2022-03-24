@@ -32,7 +32,7 @@ import Modal from '../../../components/modal';
 const MenuList = () => {
   const modal = useModal();
   const navigate = useNavigate();
-  const dishes = useDishes('02fb44e3-5f18-45eb-80a1-d8b4e8a22f1b');
+  const dishes = useDishes();
   const deleteDish = useDeleteDish();
 
   const handleClick = (dish: Dish) => {

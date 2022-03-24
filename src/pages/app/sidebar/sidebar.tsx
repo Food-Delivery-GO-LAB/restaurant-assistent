@@ -14,20 +14,25 @@ import {
 } from './sidebar.style';
 import LogoutIcon from '../../../components/icons/log-out.icon';
 import { useAuth } from '../../../state/auth/auth.state';
+import { useOrderNotification } from '../../../services/queries/use-order-notification';
 
-const NavBar = () => (
-  <OrdersNav>
-    <StyledNavLink to="/">
-      <StyledButton buttonType="text">
-        Active orders
-        <StyledBadge />
-      </StyledButton>
-    </StyledNavLink>
-    <StyledNavLink to="/menu">
-      <StyledButton buttonType="text">Menu</StyledButton>
-    </StyledNavLink>
-  </OrdersNav>
-);
+const NavBar = () => {
+  const notification = useOrderNotification();
+
+  return (
+    <OrdersNav>
+      <StyledNavLink to="/">
+        <StyledButton buttonType="text" onClick={() => notification.refetch()}>
+          Active orders
+          {notification.data?.data && <StyledBadge />}
+        </StyledButton>
+      </StyledNavLink>
+      <StyledNavLink to="/menu">
+        <StyledButton buttonType="text">Menu</StyledButton>
+      </StyledNavLink>
+    </OrdersNav>
+  );
+};
 
 const Logout = () => {
   const { logout } = useAuth();
