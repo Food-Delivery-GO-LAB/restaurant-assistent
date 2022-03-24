@@ -6,6 +6,11 @@ export interface IUserTokenData {
   exp: number;
 }
 
+export interface ITokenRes {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export interface Tokens {
   tokens: {
     access: string;
