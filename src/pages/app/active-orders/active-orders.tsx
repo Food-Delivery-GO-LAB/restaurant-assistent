@@ -23,7 +23,6 @@ import CancelIcon from '../../../components/icons/cancel.icon';
 import DishModal from './dish-modal';
 import PassToCourier from './pass-to-courier';
 import { useUpdateOrderStatus } from '../../../services/mutations/use-orders';
-import { ModalWrapper } from '../menu/menu-list.style';
 
 interface Column {
   id: string;
@@ -52,7 +51,6 @@ const ActiveOrders = () => {
   const orders = useOrders({
     limit: 10,
     page: 1,
-    restaurantId: '02fb44e3-5f18-45eb-80a1-d8b4e8a22f1b',
   });
   const updateOrderStatus = useUpdateOrderStatus();
 
