@@ -6,7 +6,6 @@ import { Order } from '../../types/orders.types';
 interface OrderRequests {
   limit: number;
   page: number;
-  restaurantId: string;
 }
 
 export const useOrders = (data: OrderRequests) =>
