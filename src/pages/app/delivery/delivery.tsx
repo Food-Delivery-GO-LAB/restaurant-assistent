@@ -5,6 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
+import { useSnackbar } from 'notistack';
 import Title from '../../../components/typography/title';
 import { StyledBox, Wrapper } from './delivery.style';
 import { colors } from '../../../styles/variables';
@@ -28,16 +29,26 @@ const Delivery: React.FC<IProps> = ({ id, orderId }) => {
     { id: 'action', label: 'Action' },
   ];
 
+  const { enqueueSnackbar } = useSnackbar();
   const updateOrderSts = useUpdateOrderStatus();
   const deliveryServices = useDeliveryServices();
 
   const handleClick = (courierService: number) => {
-    updateOrderSts.mutate({
-      id,
-      status: OrderStatusNum.READY_FOR_DELIVERY,
-      deliveryType: 2,
-      courierService,
-    });
+    updateOrderSts.mutate(
+      {
+        id,
+        status: OrderStatusNum.READY_FOR_DELIVERY,
+        deliveryType: 2,
+        courierService,
+      },
+      {
+        onSuccess() {
+          enqueueSnackbar('Passed to the courier service', {
+            variant: 'success',
+          });
+        },
+      }
+    );
   };
 
   const style = {

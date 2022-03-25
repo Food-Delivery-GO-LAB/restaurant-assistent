@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
+import { useSnackbar } from 'notistack';
 import request from '../request';
 
 interface RequestData {
@@ -10,6 +11,7 @@ interface RequestData {
 
 export const useUpdateOrderStatus = () => {
   const qc = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
   return useMutation(
     (data: RequestData) =>
       request
@@ -22,6 +24,9 @@ export const useUpdateOrderStatus = () => {
     {
       onSuccess() {
         qc.invalidateQueries('orders');
+      },
+      onError() {
+        enqueueSnackbar('Some error occurred', { variant: 'error' });
       },
     }
   );

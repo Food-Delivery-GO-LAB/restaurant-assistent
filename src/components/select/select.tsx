@@ -5,10 +5,8 @@ import FormControl from '@mui/material/FormControl';
 import styled from 'styled-components';
 import MuiSelect, { SelectProps } from '@mui/material/Select';
 import { FormHelperText } from '@mui/material';
-import { UseQueryResult } from 'react-query';
 import { colors } from '../../styles/variables';
 import InputWrapper from '../wrappers/input-wrapper';
-import { DishType } from '../../services/queries/use-dish';
 
 export const StyledLabel = styled(InputLabel)`
   && {

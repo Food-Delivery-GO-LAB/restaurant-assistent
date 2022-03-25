@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSnackbar } from 'notistack';
+import { useQueryClient } from 'react-query';
 import { ButtonProps } from '../../../components/buttons/button.types';
 import { useUpdateOrderStatus } from '../../../services/mutations/use-orders';
 import Button from '../../../components/buttons';
@@ -25,13 +27,43 @@ const ActiveOrderButton: React.FC<Props> = ({
 }) => {
   const updateOrderStatus = useUpdateOrderStatus();
   const orderModal = useModal();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const handleClick = () => {
+  const handleMessage = () => {
+    switch (status) {
+      case OrderStatusNum.IN_PROGRESS:
+        return 'Order accepted. Order status changed to "In progress"';
+      case OrderStatusNum.READY_FOR_DELIVERY:
+        return 'Order is ready to be delivered';
+      default:
+        return '';
+    }
+  };
+
+  const handleStatusChange = () => {
     if (status === OrderStatusNum.CANCELED) {
       orderModal.open();
     } else {
-      updateOrderStatus.mutate({ id, status, deliveryType: 1 });
+      updateOrderStatus.mutate(
+        { id, status, deliveryType: 1 },
+        {
+          onSuccess() {
+            enqueueSnackbar(handleMessage(), { variant: 'success' });
+          },
+        }
+      );
     }
+  };
+
+  const handleReject = () => {
+    updateOrderStatus.mutate(
+      { id, status, deliveryType: 1 },
+      {
+        onSuccess() {
+          enqueueSnackbar('Order canceled', { variant: 'success' });
+        },
+      }
+    );
   };
 
   return (
@@ -39,7 +71,7 @@ const ActiveOrderButton: React.FC<Props> = ({
       <Button
         buttonType={buttonType}
         loading={updateOrderStatus.isLoading}
-        onClick={handleClick}
+        onClick={handleStatusChange}
         startIcon={icon}
       >
         {text}
@@ -53,12 +85,7 @@ const ActiveOrderButton: React.FC<Props> = ({
             <Button buttonType="secondary" onClick={() => orderModal.close()}>
               Cancel
             </Button>
-            <Button
-              buttonType="primary"
-              onClick={() =>
-                updateOrderStatus.mutate({ id, status, deliveryType: 1 })
-              }
-            >
+            <Button buttonType="primary" onClick={handleReject}>
               Yes
             </Button>
           </div>
