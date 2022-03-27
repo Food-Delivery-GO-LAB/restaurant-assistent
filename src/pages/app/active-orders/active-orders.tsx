@@ -132,12 +132,6 @@ const ActiveOrders = () => {
                           >
                             View
                           </Button>
-                          <Modal
-                            open={dishModal.isOpen}
-                            onClose={dishModal.close}
-                          >
-                            <DishModal id={orderId} />
-                          </Modal>
                         </TableCell>
                         <TableCell>{order.cost} BYN</TableCell>
                         <TableCell
@@ -197,6 +191,9 @@ const ActiveOrders = () => {
               </TableBody>
             </Table>
           </TableContainer>
+          <Modal open={dishModal.isOpen} onClose={dishModal.close}>
+            <DishModal id={orderId} />
+          </Modal>
           <TablePagination
             rowsPerPageOptions={[10, 25, 50]}
             component="div"
