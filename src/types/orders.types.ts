@@ -8,10 +8,10 @@ export enum OrderStatus {
 
 export enum OrderStatusNum {
   NEW = 1,
-  CANCELED = 2,
-  IN_PROGRESS = 3,
-  READY_FOR_DELIVERY = 4,
-  COMPLETED = 5,
+  IN_PROGRESS = 2,
+  READY_FOR_DELIVERY = 3,
+  COMPLETED = 4,
+  CANCELED = 5,
 }
 
 export type Status =

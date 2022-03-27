@@ -5,13 +5,13 @@ import deliveryLogo from '../../components/icons/delivery.svg';
 import SignIn from './sign-in';
 import { colors } from '../../styles/variables';
 
-const RootStyle = styled('div')(({ theme }) => ({
+const RootStyle = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   backgroundColor: colors.white_lighter,
   height: '70vh',
-}));
+});
 
 const SectionStyle = styled('div')(({ theme }) => ({
   width: '100%',
@@ -22,14 +22,14 @@ const SectionStyle = styled('div')(({ theme }) => ({
   margin: theme.spacing(2, 0, 2, 2),
 }));
 
-const ContentStyle = styled('div')(({ theme }) => ({
+const ContentStyle = styled('div')({
   maxWidth: 480,
   minWidth: 330,
   margin: 0,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-}));
+});
 
 export type FormType = 'login' | 'passRestore';
 const Auth = () => (

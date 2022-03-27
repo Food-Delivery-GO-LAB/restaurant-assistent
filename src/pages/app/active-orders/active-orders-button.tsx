@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSnackbar } from 'notistack';
-import { useQueryClient } from 'react-query';
 import { ButtonProps } from '../../../components/buttons/button.types';
 import { useUpdateOrderStatus } from '../../../services/mutations/use-orders';
 import Button from '../../../components/buttons';

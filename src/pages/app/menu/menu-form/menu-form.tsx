@@ -22,7 +22,7 @@ import FileInput from '../../../../components/inputs/file-input';
 import PlusIcon from '../../../../components/icons/plus.icon';
 import Button from '../../../../components/buttons';
 import { useUpload } from '../../../../services/mutations/use-upload';
-import { Dish, NewDish, UpdatedDish } from '../../../../types/dish.types';
+import { Dish, UpdatedDish } from '../../../../types/dish.types';
 import { useDishTypes } from '../../../../services/queries/use-dish';
 
 const ValidationSchema: yup.SchemaOf<UpdatedDish> = yup.object({
@@ -33,7 +33,6 @@ const ValidationSchema: yup.SchemaOf<UpdatedDish> = yup.object({
     .required('Cost is required'),
   description: yup.string().required('Description is required'),
   status: yup.string().required('Status is required'),
-  image: yup.string().required('Image is required'),
   type: yup.string().required('Type is required'),
   cookingTime: yup
     .number()
@@ -48,7 +47,7 @@ const ValidationSchema: yup.SchemaOf<UpdatedDish> = yup.object({
 interface Props {
   title: string;
   dishData?: Dish;
-  addDish?: UseMutationResult<any, unknown, NewDish, unknown>;
+  addDish?: UseMutationResult<any, unknown, UpdatedDish, unknown>;
   updateDish?: UseMutationResult<any, unknown, UpdatedDish, unknown>;
 }
 
@@ -84,7 +83,7 @@ const MenuForm: React.FC<Props> = ({
     setImageUrl(URL.createObjectURL(logoFile));
   };
 
-  const onSubmit: SubmitHandler<UpdatedDish | NewDish> = (data) => {
+  const onSubmit: SubmitHandler<UpdatedDish> = (data) => {
     if (updateDish) {
       updateDish.mutate(
         {
@@ -106,7 +105,6 @@ const MenuForm: React.FC<Props> = ({
       addDish.mutate(
         {
           ...data,
-          restaurantId: '02fb44e3-5f18-45eb-80a1-d8b4e8a22f1b',
         },
         {
           onSuccess(res) {
@@ -180,7 +178,6 @@ const MenuForm: React.FC<Props> = ({
               error={errors.weight?.message}
               type="number"
               min={0}
-              step="0.01"
               label="Weight"
               defaultValue={dishData?.weight ?? 0}
             />
@@ -201,7 +198,7 @@ const MenuForm: React.FC<Props> = ({
                 <UploadArea>
                   <PlusIcon size={60} />
                 </UploadArea>
-                <FileInput {...register('image')} id="image" label="Image" />
+                <FileInput id="image" label="Image" />
               </Label>
               <LogoArea src={imageUrl ?? ''} />
             </LogoContainer>
