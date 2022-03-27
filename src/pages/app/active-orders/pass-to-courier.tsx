@@ -28,8 +28,8 @@ const PassToCourier: React.FC<Props> = ({ id, orderId, onChecked }) => {
   const deliverModal = useModal();
 
   const handleChange = () => {
-    setChecked((prev) => !prev);
     onChecked(checked);
+    setChecked((prev) => !prev);
   };
 
   return (

@@ -53,9 +53,11 @@ export const StyledList = styled.li`
   background-color: white;
   border-radius: 4px;
   margin: 1.5rem 0;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07), 0 1px 12px 2px rgba(0, 0, 0, 0.1);
   gap: 1rem;
   overflow: hidden;
+  &:hover {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 1px 12px 2px rgba(0, 0, 0, 0.2);
+  }
   img {
     width: 100%;
     height: 16rem;

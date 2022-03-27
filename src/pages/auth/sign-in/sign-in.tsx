@@ -13,20 +13,11 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
-import { styled } from '@mui/material/styles';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { colors as globalColors } from '../../../styles/variables';
 import Button from '../../../components/buttons';
 import { useLogin } from '../../../services/mutations/use-login';
-
-const LoginError = styled('div')(({ theme }) => ({
-  width: '100%',
-  padding: theme.spacing(2),
-  color: globalColors.error,
-  fontSize: '.75rem',
-  textAlign: 'center',
-}));
 
 interface ILoginProps {
   userRole: string;
