@@ -82,7 +82,7 @@ const ActiveOrders = () => {
         <Paper
           sx={{
             width: '100%',
-            maxHeight: '75vh',
+            maxHeight: '72vh',
             overflow: 'auto',
             borderRadius: '4px',
           }}
