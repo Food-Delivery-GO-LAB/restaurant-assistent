@@ -55,6 +55,7 @@ export const StyledList = styled.li`
   margin: 1.5rem 0;
   gap: 1rem;
   overflow: hidden;
+  transition: box-shadow 0.5s ease;
   &:hover {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 1px 12px 2px rgba(0, 0, 0, 0.2);
   }

@@ -11,7 +11,9 @@ export const useUpdateDish = (id: string | undefined) => {
       request.put(`/dish/${id}`, data).then((res) => res.data),
     {
       onSuccess() {
-        enqueueSnackbar('Dish information changed', { variant: 'success' });
+        enqueueSnackbar('Dish information has been changed', {
+          variant: 'success',
+        });
       },
     }
   );
@@ -24,7 +26,7 @@ export const useAddDish = () => {
     (data: UpdatedDish) => request.post('/dish', data).then((res) => res.data),
     {
       onSuccess() {
-        enqueueSnackbar('New dish added', { variant: 'success' });
+        enqueueSnackbar('New dish has been added', { variant: 'success' });
       },
     }
   );
@@ -37,7 +39,9 @@ export const useDeleteDish = () => {
   return useMutation((id: string) => request.delete(`/dish/${id}`), {
     onSuccess() {
       qc.invalidateQueries('dishes');
-      enqueueSnackbar('Dish deleted', { variant: 'success' });
+      enqueueSnackbar('The dish has been successfully deleted', {
+        variant: 'success',
+      });
     },
   });
 };
