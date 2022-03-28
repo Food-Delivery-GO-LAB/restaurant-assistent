@@ -30,6 +30,7 @@ import { useModal } from '../../../hooks/use-modal';
 import Modal from '../../../components/modal';
 
 const MenuList = () => {
+  const [dishId, setDishId] = React.useState('');
   const modal = useModal();
   const navigate = useNavigate();
   const dishes = useDishes();
@@ -43,8 +44,8 @@ const MenuList = () => {
     navigate(`/menu/add-dish`);
   };
 
-  const handleDelete = (id: string) => {
-    deleteDish.mutate(id);
+  const handleDelete = () => {
+    deleteDish.mutate(dishId);
     modal.close();
   };
 
@@ -105,37 +106,34 @@ const MenuList = () => {
                         </Button>
                         <DeleteButton
                           buttonType="secondary"
-                          onClick={() => modal.open()}
+                          onClick={() => {
+                            modal.open();
+                            setDishId(dish.id);
+                          }}
                         >
                           <DeleteIcon />
                           <HiddenText>Delete</HiddenText>
                         </DeleteButton>
-                        <Modal open={modal.isOpen} onClose={modal.close}>
-                          <ModalWrapper>
-                            <Title size="sm" fontWeight="500">
-                              Are you sure you want to delete the dish?
-                            </Title>
-                            <div>
-                              <Button
-                                buttonType="secondary"
-                                onClick={() => modal.close()}
-                              >
-                                Cancel
-                              </Button>
-                              <Button
-                                buttonType="primary"
-                                onClick={() => handleDelete(dish.id)}
-                              >
-                                Yes
-                              </Button>
-                            </div>
-                          </ModalWrapper>
-                        </Modal>
                       </ButtonsContainer>
                     </RightSide>
                   </DescriptionContainer>
                 </StyledList>
               ))}
+            <Modal open={modal.isOpen} onClose={modal.close}>
+              <ModalWrapper>
+                <Title size="sm" fontWeight="500">
+                  Are you sure you want to delete the dish?
+                </Title>
+                <div>
+                  <Button buttonType="secondary" onClick={() => modal.close()}>
+                    Cancel
+                  </Button>
+                  <Button buttonType="primary" onClick={handleDelete}>
+                    Yes
+                  </Button>
+                </div>
+              </ModalWrapper>
+            </Modal>
           </MenuContainer>
         </MenuWrapper>
       </Spinner>
