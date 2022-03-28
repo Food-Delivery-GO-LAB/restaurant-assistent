@@ -83,7 +83,12 @@ const MenuList = () => {
                             'Here should be very informative description'}
                         </Text>
                         <Text size="md">
-                          ⚖️ {dish.weight ?? 'Weight not specified'}
+                          ⚖️{' '}
+                          <i>
+                            {dish.weight
+                              ? `${dish.weight} gm`
+                              : 'Weight not specified'}
+                          </i>
                         </Text>
                         <StatusText size="md" status={dish.status}>
                           {dish.status === 'available'
